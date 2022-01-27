@@ -153,6 +153,7 @@
 
 
 ### Use case
+<img src="assets/UseCase.PNG" height="400">
 
 I casi d’uso rappresentano l’interazione tra i vari attori e le
 funzionalità del prodotto.
@@ -193,10 +194,10 @@ all’esecutore di evitare fraintendimenti e imprecisioni
 nell’implementazione del prodotto.
 
 ### Design dell’architettura del sistema
-
+<!--
 Descrive:
 
-[//]: <> (Qui mettiamo lo schema di rete)
+Qui mettiamo lo schema di rete
 
 -   La struttura del programma/sistema lo schema di rete...
 
@@ -207,6 +208,14 @@ Descrive:
     dati* (DFD).
 
 -   Eventuale sitemap
+-->
+#### Application Design
+
+<!-- DIMENSIONI ORIGINALI 
+![application design](../application_design.png)
+-->
+<img src="assets/application_design.png" height="400">
+
 
 ### Design dei dati e database
 
