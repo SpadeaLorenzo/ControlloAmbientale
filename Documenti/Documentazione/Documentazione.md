@@ -44,24 +44,21 @@
 
 1. [Sitografia](#sitografia)
 
-1. [Allegati](#allegati)
+1. [Allegati](#allegati) 
 
 
 ## Introduzione
 
 ### Informazioni sul progetto
-
-  In questo capitolo raccogliere le informazioni relative al progetto, ad esempio:
-
-  -   Allievo/i e docente/i coinvolti nel progetto e rispettivi ruoli,
-
-  -   scuola ,sezione, materia/e,
-
-  -   date di inizio e termine di consegna,
-
-  -   …
+  - Autori: Erik Pelloni, Nicola Anghileri, Lorenzo Spadea.
+  - Classe: I3BB
+  - Docenti responsabili: Geo Petrini, (Luca Muggiasca)
+  - Data inizio: 27.02.2022
+  - Data fine: 05.05.2022 
 
 ### Abstract
+
+  In this guide will get step by step into the realization of..
 
   E’ una breve e accurata rappresentazione dei contenuti di un documento,
   senza notazioni critiche o valutazioni. Lo scopo di un abstract efficace
@@ -102,9 +99,12 @@
 
 ### Scopo
 
-  Lo scopo del progetto (scopi didattici/scopi operativi). Dovrebbe
-  descrivere il mandato, ma non vanno ricopiate le informazioni del
-  quaderno dei compiti (che va invece allegato).
+  Lo scopo del progetto è quello di creare un applicativo WEB, che tramite l'uso di un 
+  fishino, andrà a fornire dei dati ambientali che verranno poi mostrati sotto forma di grafici.
+  I dati che verrano elaborati sono riguardanti la luminosità dell'ambiente, l'umidità,
+  la quantità di CO2 presente nell'aria e 
+  la temperatura. Grazie all'interfaccia WEB si potrà intuitivamente controllare lo stato 
+  dell'ambiente dove verrà posizionato il fishino
 
 
 ## Analisi
@@ -137,75 +137,19 @@
 
 ### Analisi e specifica dei requisiti
 
-  Il progettista, dopo aver ricevuto il mandato, in collaborazione con il
-  committente redige una lista di requisiti. Durante questi incontri,
-  tramite interviste (da inserire nei diari), il progettista deve cercare
-  di rispondere alle seguenti domande:
-
-  -   Quali sono i bisogni del committente?
-
-  -   Quali funzioni deve svolgere il prodotto?
-
-  -   Come devono essere implementate?
-
-  -   L’utente, come vorrebbe/dovrebbe interagire con il prodotto?
-
-  -   Come verrà utilizzato il prodotto?
-
-  -   Che tipo di interfaccia si immagina?
-
-  -   Che prestazioni minime deve fornire il prodotto?
-
-  -   Che grado di sicurezza deve avere il prodotto?
-
-  -   …
-
-  In base alla lista dei requisiti e all’analisi degli stessi, il
-  progettista redige una *specifica dei requisiti* in cui elenca e
-  descrive in modo dettagliato quali sono le funzionalità che il prodotto
-  fornirà. La specifica dovrebbe essere abbastanza dettagliata da poter
-  essere utilizzata come base per lo sviluppo, ma non troppo; ad esempio
-  non dovrebbe contenere dettagli di implementazione, o definizioni
-  dettagliate dell’interfaccia grafica a meno che questi non siano
-  considerati cruciali. Non si deve scordare che i requisiti non
-  rappresentano delle attività bensì delle caratteristiche che il prodotto
-  dovrà possedere.
 
 
-
-
-  |**ID**	|**Nome**			|**Priorità**|**Vers**|**Note**  |
-  |----|------------|--------|----|------|
-  |Req-12|Dovrà esserci una maschera di login|1|1.0|...|
-  |Req-13|Si dovranno poter immettere nuovi allievi|1|1.0|...|
-  |Req-14|Dovrà essere possibile la ricerca di allievi|1|1.0|...|
-  
-  
-
-
-
-**Spiegazione elementi tabella dei requisiti:**
-
-**ID**: identificativo univoco del requisito
-
-**Nome**: breve descrizione del requisito
-
-**Priorità**: indica l’importanza di un requisito nell’insieme del
-progetto, definita assieme al committente. Ad esempio poter disporre di
-report con colonne di colori diversi ha priorità minore rispetto al
-fatto di avere un database con gli elementi al suo interno. Solitamente
-si definiscono al massimo di 2-3 livelli di priorità.
-
-**Versione**: indica la versione del requisito. Ogni modifica del
-requisito avrà una versione aggiornata.
-
-Sulla documentazione apparirà solamente l’ultima versione, mentre le
-vecchie dovranno essere inserite nei diari.
-
-**Note**: eventuali osservazioni importanti o riferimenti ad altri
-requisiti.
-
-**Sotto requisiti**: elementi che compongono il requisito.
+|**ID**	|**Nome**			|**Priorità**|**Vers**|**Note**  |
+|----|------------|--------|----|------|
+|Req-001|Scrivere il codice per la raccolta e trasmissione|1|1.0| |
+|Req-002|Protocollo trasmissione|1|1.0| |
+|Req-003|Progettare e realizzare case|3|1.0| |
+|Req-004|Salvataggio dati in DB|1|1.0| |
+|Req-005|Elaborazione dati tempo reale|1|1.0| |
+|Req-006|Scelta grafici sito|1|1.0| |
+|Req-007|Sistema amministrazione|1|1.0| |
+|Req-008|Host separati per Web e DB|1|1.0| |
+|Req-009|Associazione con MAC Address|1|1.0| |
 
 
 ### Use case
@@ -251,6 +195,8 @@ nell’implementazione del prodotto.
 ### Design dell’architettura del sistema
 
 Descrive:
+
+[//]: <> (Qui mettiamo lo schema di rete)
 
 -   La struttura del programma/sistema lo schema di rete...
 
