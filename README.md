@@ -10,3 +10,6 @@ Sistema informatico utile all raccolta di dati ambientali e la loro rappresentaz
 
 
 # [Documentazione](Documenti/Documentazione)
+
+# [GanntNonFinale](Documenti/Documentazione/assets/gantt%20non%20gantt.PNG)
+<img src="Documenti/Documentazione/assets/gantt%20non%20gantt.PNG">
