@@ -153,10 +153,13 @@
 
 
 ### Use case
-<img src="assets/UseCase.PNG" height="400">
+<img src="assets/use_case.png" height="400">
+<br> 
 
-I casi d’uso rappresentano l’interazione tra i vari attori e le
-funzionalità del prodotto.
+- User: Può vedere i grafici dell'ambiente attraverso la GUI.
+- Admin:
+
+<br>
 
 ### Pianificazione
 
