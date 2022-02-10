@@ -18,6 +18,10 @@
 
   - [Pianificazione](#pianificazione)
 
+    - [Gantt preventivo](#gantt-preventivo)
+
+    - [Descrizione gantt preventivo](#descrizione-gantt-preventivo)
+
 1. [Progettazione](#progettazione)
 
   - [Design dell’architettura del sistema](#design-dell’architettura-del-sistema)
@@ -176,6 +180,12 @@ Gantt.
 Se si usano altri metodi di pianificazione (es scrum), dovranno apparire
 in questo capitolo.
 
+#### Gantt preventivo
+
+![gantt_preventivo](assets\Gantt_Preventivo_ControlloAmbientale.mpp.png)
+
+#### Descrizione gantt preventivo
+
 ### Analisi dei mezzi
 
 Elencare e *descrivere* i mezzi disponibili per la realizzazione del
@@ -257,6 +267,7 @@ per la realizzazione del prodotto.
 
 ## Implementazione
 
+
 In questo capitolo dovrà essere mostrato come è stato realizzato il
 lavoro. Questa parte può differenziarsi dalla progettazione in quanto il
 risultato ottenuto non per forza può essere come era stato progettato.
@@ -275,6 +286,9 @@ Non deve apparire nessuna forma di guida d’uso di librerie o di
 componenti utilizzati. Eventualmente questa va allegata.
 
 Per eventuali dettagli si possono inserire riferimenti ai diari.
+
+### Connessione fishino
+
 
 ## Test
 
