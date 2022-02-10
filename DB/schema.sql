@@ -26,3 +26,5 @@ CREATE TABLE datas(
     FOREIGN KEY fihsino_id REFERENCES fishino(id),
     PRIMARY KEY(data, fihsino_id)
 );
+
+
