@@ -27,4 +27,4 @@ CREATE TABLE datas(
     PRIMARY KEY(data, fihsino_id)
 );
 
-
+ciao come stai 
