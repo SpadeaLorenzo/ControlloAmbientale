@@ -18,10 +18,11 @@ CREATE TABLE fihsino(
 CREATE TABLE datas(
     data DATE,
     fihsino_id INT,
-    humidity INT,
-    brightness INT,
-    sound INT,
-    C02 INT,
+    humidity FLOAT,
+    brightness FLOAT,
+    sound FLOAT,
+    temperature FLOAT,
+    C02 FOAT,
     FOREIGN KEY fihsino_id REFERENCES fishino(id),
     PRIMARY KEY(data, fihsino_id)
 );
