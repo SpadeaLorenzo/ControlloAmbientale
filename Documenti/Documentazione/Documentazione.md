@@ -182,7 +182,7 @@ in questo capitolo.
 
 #### Gantt preventivo
 
-![gantt_preventivo](assets\Gantt_Preventivo_ControlloAmbientale.mpp.png)
+![gantt_preventivo](assets\Gantt_Preventivo_ControlloAmbientale.png)
 
 #### Descrizione gantt preventivo
 
