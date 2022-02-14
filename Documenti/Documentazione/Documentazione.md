@@ -56,7 +56,7 @@
 ### Informazioni sul progetto
   - Autori: Erik Pelloni, Nicola Anghileri, Lorenzo Spadea.
   - Classe: I3BB
-  - Docenti responsabili: Geo Petrini, (Luca Muggiasca)
+  - Docenti responsabili: Geo Petrini
   - Data inizio: 27.02.2022
   - Data fine: 05.05.2022 
 
