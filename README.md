@@ -4,12 +4,12 @@ Sistema informatico utile all raccolta di dati ambientali e la loro rappresentaz
 # Info
 | Titolo               | Autori                   | Responsabili                | Data Iniziale   | Data finale      |
 | :------------------- | :----------------------- | :-------------------------- | --------------- | ---------------- |
-| Controllo Ambientale | Erik Pelloni, Nicola Anghileri, Lorenzo Spadea | Luca Muggiasca, Geo Petrini | 27.01.2022 | 05.05.2022 |
+| Controllo Ambientale | Erik Pelloni, Nicola Anghileri, Lorenzo Spadea | Geo Petrini | 27.01.2022 | 05.05.2022 |
 
 # [Diari](Documenti/Diari)
 
 
 # [Documentazione](Documenti/Documentazione)
 
-# [Gannt](Documenti/Documentazione/assets/Gantt_Preventivo_ComtrolloAmbientale.mpp.png)
-<img src="Documenti\Documentazione\assets\Gantt_Preventivo_ControlloAmbientale.mpp.png">
+# [Gantt](Documenti\Documentazione\assets\Gantt_Preventivo_ControlloAmbientale.png)
+<img src="Documenti\Documentazione\assets\Gantt_Preventivo_ControlloAmbientale.png">
