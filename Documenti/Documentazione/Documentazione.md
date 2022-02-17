@@ -226,6 +226,7 @@ L'ultimo bit (il 16°), però, rappresenta il segno: vale 1 se la temperatura
 |5V           |2  |
 
 ***MQ 135, qualità dell'aria***
+
 <img src="assets/sensori/mq135.jpg" alt="MQ135" height="150"  style="float: left; margin:0 10px 0 0">
 
 Questo sensore misura la qualità dell'aria e i gas contenuti in essa.
@@ -235,25 +236,29 @@ Quando c'è gas, il valore sarà più alto. **???**
 Dalle misure che ho preso in classe, in una situazione normale il valore si aggira attorno ai 20-30, facendo analizzare il gas dell'accendino il valore sale fino
 anche fino a 920.
 I valori analogici sono 0 se c'è gas e 1 se non ce n'è.
+<br><br><br>
 
 |Alimentazione|Pin|
 |-------------|---|
 |5V           |A0 |
+
 <br>
 
 ***TSL 2561, luminosità***
+
 <img src="assets/sensori/tsl2561.jpg" alt="TSL2561" height="150"  style="float: left; margin:0 10px 0 0">
 
-<br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br>
 
 |Alimentazione| Pin      |
 |-------------|----------|
 |3.3V         |SDA e SCL |
 
 ***MAX 4466, microfono (suono)***
+
 <img src="assets/sensori/max4466.jpg" alt="MAX4466" height="150"  style="float: left; margin:0 10px 0 0">
 
-<br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br>
 
 |Alimentazione|Pin|
 |-------------|---|
