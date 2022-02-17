@@ -199,6 +199,66 @@ Su quale piattaforma dovrà essere eseguito il prodotto? Che hardware
 particolare è coinvolto nel progetto? Che particolarità e limitazioni
 presenta? Che hw sarà disponibile durante lo sviluppo?
 
+#### **Descrizione componenti Fishino**
+
+***DHT 22, temperatura e umidità***
+
+<img src="assets/sensori/dht22.jpg" alt="DHT22" height="150"  style="float: left; margin:0 10px 0 0">
+
+Questo sensore misura la temperatura in gradi Celsius e l'umidità in percentuale.
+
+I dati vengono immagazzinati dentro a dei pacchetti di 5 byte composti in questo modo:
+
+Dal più al meno signficativo nell'ordine: Byte alto umidità relativa, Byte basso umidità
+relativa, Byte alto temperatura, Byte basso temperatura, Checksum.
+
+I valori decimali vengono moltiplicati per 10, come nell'esempio seguente:
+
+`Se l'umidità è del 59.4%, verrà inviato il numero 594 in questa composizione: 
+il primo byte è 0000 0010 e il secondo è 0101 0010. `
+
+La stessa cosa avviene anche per la temperatura (terzo e quarto byte).
+L'ultimo bit (il 16°), però, rappresenta il segno: vale 1 se la temperatura
+è negativa e 0 se è postiva.
+
+|Alimentazione|Pin|
+|-------------|---|
+|5V           |2  |
+
+***MQ 135, qualità dell'aria***
+<img src="assets/sensori/mq135.jpg" alt="MQ135" height="150"  style="float: left; margin:0 10px 0 0">
+
+Questo sensore misura la qualità dell'aria e i gas contenuti in essa.
+
+La lettura analogica ritorna 1023 (valore massimo) se non viene rilevato gas. 
+Quando c'è gas, il valore sarà più alto. **???**
+Dalle misure che ho preso in classe, in una situazione normale il valore si aggira attorno ai 20-30, facendo analizzare il gas dell'accendino il valore sale fino
+anche fino a 920.
+I valori analogici sono 0 se c'è gas e 1 se non ce n'è.
+
+|Alimentazione|Pin|
+|-------------|---|
+|5V           |A0 |
+<br>
+
+***TSL 2561, luminosità***
+<img src="assets/sensori/tsl2561.jpg" alt="TSL2561" height="150"  style="float: left; margin:0 10px 0 0">
+
+<br><br><br><br><br><br><br><br><br><br>
+
+|Alimentazione| Pin      |
+|-------------|----------|
+|3.3V         |SDA e SCL |
+
+***MAX 4466, microfono (suono)***
+<img src="assets/sensori/max4466.jpg" alt="MAX4466" height="150"  style="float: left; margin:0 10px 0 0">
+
+<br><br><br><br><br><br><br><br><br><br>
+
+|Alimentazione|Pin|
+|-------------|---|
+|3.3V         |A1 |
+
 ## Progettazione
 
 Questo capitolo descrive esaustivamente come deve essere realizzato il
@@ -228,6 +288,7 @@ Qui mettiamo lo schema di rete
 ![application design](../application_design.png)
 -->
 <img src="assets/application_design.png" height="400">
+
 
 
 ### Design dei dati e database
