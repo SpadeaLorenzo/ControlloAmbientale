@@ -1,5 +1,8 @@
 import React from 'react';
 
+import LoginInputs from '../Components/Login';
+
+
 const Login = () => {
     return (
         <div style={{
@@ -9,7 +12,9 @@ const Login = () => {
             height: '100vh'
         }}>
             <h1>Login</h1>
+            <LoginInputs/>
         </div>
+
     );
 };
 

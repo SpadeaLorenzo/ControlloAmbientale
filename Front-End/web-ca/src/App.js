@@ -18,11 +18,12 @@ LogRocket.init('k8vuf7/controllo-ambientale');
 function App() {
   return (
       <Router>
-        <Navbar>
-            <Route exact path="/" element={Home} />
-            <Route exact path="/fishino" element={Fishino} />
-            <Route exact path='/login' element={Login} />
-        </Navbar>
+        <Navbar/>
+          <Routes>
+            <Route path="/" element={<Home/>} />
+            <Route path="/fishino" element={<Fishino/>} />
+            <Route path='/login' element={<Login/>} />
+          </Routes>
     </Router>
   );
 }
