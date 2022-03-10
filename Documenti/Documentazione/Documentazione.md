@@ -342,8 +342,8 @@ byte *float2bytes(float number)
 }
 ```
 
-Partendo dal principio: `byte*` significa `puntatore di byte`, in questo caso l'equivalente di un array di byte, cioè
-una sequenza di byte all'interno della memoria.
+Partendo dal principio: `byte*` significa `puntatore di byte`, in questo caso l'equivalente di un array, cioè
+una sequenza di valori all'interno della memoria.
 
 Questi metodi prendono il valore, poi con degli shift e con dei cast li inseriscono all'interno del puntatore.
 
