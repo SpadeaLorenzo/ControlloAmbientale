@@ -9,7 +9,7 @@ Sistema informatico utile all raccolta di dati ambientali e la loro rappresentaz
 # [Diari](Documenti/Diari)
 
 
-# [Documentazione](Documenti/Documentazione)
+# [Documentazione](Documenti/Documentazione/Documentazione.md)
 
 # [Gantt](Documenti\Documentazione\assets\Gantt_Preventivo_ControlloAmbientale.png)
 <img src="Documenti\Documentazione\assets\Gantt_Preventivo_ControlloAmbientale.png">
