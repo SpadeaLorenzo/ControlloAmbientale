@@ -315,25 +315,47 @@ per la realizzazione del prodotto.
 
 ## Implementazione
 
+### Protocollo di comunicazione (non completato e non utilizzato)
+**Al posto di questo, viene utilizato il protocollo HTTP**
 
-In questo capitolo dovrà essere mostrato come è stato realizzato il
-lavoro. Questa parte può differenziarsi dalla progettazione in quanto il
-risultato ottenuto non per forza può essere come era stato progettato.
+Segue una descrizione del protocollo di comunicazione che è stato creato per permettere ai vari Fishino
+di passare i dati alla RestAPI.
 
-Sulla base di queste informazioni il lavoro svolto dovrà essere
-riproducibile.
+#### Conversione da float a bytes
+Questi sono i metodi utilizzati per memorizzare il valore delle variabili di tipo long (numeri interi di 32 bit) e
+float (numeri a virgola mobile di 32 bit) all'interno di 2 byte.
 
-In questa parte è richiesto l’inserimento di codice sorgente/print
-screen di maschere solamente per quei passaggi particolarmente
-significativi e/o critici.
+```cpp
+byte *long2bytes(long number)
+{
+  byte *array = new byte[2];
+  long value = (long)(number * 10);
+  //shift, mask and put in array
+  array[0] = (number & 65280) >> 8;
+  array[1] = (byte)number;
+  return array;
+}
 
-Inoltre dovranno essere descritte eventuali varianti di soluzione o
-scelte di prodotti con motivazione delle scelte.
+byte *float2bytes(float number)
+{
+  return long2bytes((long)(number * 10));
+}
+```
 
-Non deve apparire nessuna forma di guida d’uso di librerie o di
-componenti utilizzati. Eventualmente questa va allegata.
+Partendo dal principio: `byte*` significa `puntatore di byte`, in questo caso l'equivalente di un array di byte, cioè
+una sequenza di byte all'interno della memoria.
 
-Per eventuali dettagli si possono inserire riferimenti ai diari.
+Questi metodi prendono il valore, poi con degli shift e con dei cast li inseriscono all'interno del puntatore.
+
+Lo schema seguente mostra, in modo più dettagliato, il funzionamento di questi metodi.
+
+<img src="./assets/spiegazione_conversione_bytes.png" alt="schema conversione" width="500">
+
+I valori float vengono trasformati in valori interi (nel caso specifico, `long`) semplicemente facendo una moltiplicazione
+per 10, poi vengono trattati nello stesso modo in cui vengono trattati i numeri interi.
+
+Come detto in origine, nel progetto, questi metodi non vengono utilizzati, siccome è sato deciso di utilizzare il protocollo HTTP, 
+già presente all'interno di librerie per Fishino.
 
 ### Connessione fishino
 
