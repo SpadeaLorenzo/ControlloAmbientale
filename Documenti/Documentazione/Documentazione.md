@@ -56,11 +56,13 @@
 ### Informazioni sul progetto
   - Autori: Erik Pelloni, Nicola Anghileri, Lorenzo Spadea.
   - Classe: I3BB
-  - Docenti responsabili: Geo Petrini
+  - Docente responsabile: Geo Petrini
   - Data inizio: 27.02.2022
   - Data fine: 05.05.2022 
 
 ### Abstract
+
+  Questo progetto viene creato per scoprire come sono l'umidità, la temperatura, la qualità dell'aria e il rumore, all'interno della nostra sede scolastica.
 
   In this guide will get step by step into the realization of..
 
@@ -115,29 +117,9 @@
 
 ### Analisi del dominio
 
-  Questo capitolo dovrebbe descrivere il contesto in cui il prodotto verrà
-  utilizzato, da questa analisi dovrebbero scaturire le risposte a quesiti
-  quali ad esempio:
-
-  -   Background/Situazione iniziale
-
-  -   Quale è e come è organizzato il contesto in cui il prodotto dovrà
-      funzionare?
-
-  -   Come viene risolto attualmente il problema? Esiste già un prodotto
-      simile?
-
-  -   Chi sono gli utenti? Che bisogni hanno? Come e dove lavorano?
-
-  -   Che competenze/conoscenze/cultura posseggono gli utenti in relazione
-      con il problema?
-
-  -   Esistono convenzioni/standard applicati nel dominio?
-
-  -   Che conoscenze teoriche bisogna avere/acquisire per poter operare
-      efficacemente nel dominio?
-
-  -   …
+  In questo momento non sappiamo a cosa è sottoposto il nostro corpo mentre siamo all'interno della nostra sede scolastica, questo è il motivo per cui esiste il nostro progetto, verranno installati diversi apparecchi che raccolgono dati come la qualità dell'aria, il rumore, l'umidità e la temperatura.
+  Grazie a questi dati raccolti ogni 5 minuti in diverse posizioni all'interno della nostra sede scolastica, potremo scoprire se esistono dei problemi, come ad esempio la qualità dell'aria troppo bassa ecc...
+  Al momento in alcune classi sono già presenti dei sensori che forniscono dei dati riguardo il valore di CO2, il tutto però non è molto funzionante e non facilmente accessibile agli allievi. Questo verrà migliorato e facilitato grazie al nostro progetto, che raccoglierà 5 dati importanti, già elencati in precedenza e verranno elaborati con dei grafici per fare in modo che il tutto sia più facile da capire e da utilizzare.
 
 ### Analisi e specifica dei requisiti
 
