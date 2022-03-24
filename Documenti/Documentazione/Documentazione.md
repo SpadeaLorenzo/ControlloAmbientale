@@ -207,6 +207,8 @@ L'ultimo bit (il 16°), però, rappresenta il segno: vale 1 se la temperatura
 |-------------|---|
 |5V           |2  |
 
+<br>
+
 ***MQ 135, qualità dell'aria***
 
 <img src="assets/sensori/mq135.jpg" alt="MQ135" height="150"  style="float: left; margin:0 10px 0 0">
@@ -218,7 +220,7 @@ Quando c'è gas, il valore sarà più alto. **???**
 Dalle misure che ho preso in classe, in una situazione normale il valore si aggira attorno ai 20-30, facendo analizzare il gas dell'accendino il valore sale fino
 anche fino a 920.
 I valori analogici sono 0 se c'è gas e 1 se non ce n'è.
-<br><br><br>
+
 
 |Alimentazione|Pin|
 |-------------|---|
@@ -230,7 +232,21 @@ I valori analogici sono 0 se c'è gas e 1 se non ce n'è.
 
 <img src="assets/sensori/tsl2561.jpg" alt="TSL2561" height="150"  style="float: left; margin:0 10px 0 0">
 
-<br><br><br><br><br><br><br>
+```cpp
+tsl.enableAutoRange(true)
+``` 
+configura il "gain" automaticamente in base all'amiente circostante. 
+È utile per non dover cambiare il codice in base al fatto che le misurazioni siano prese
+all'interno, all'esterno o con diverse situazioni. Il gain può essere configurato
+manualmente con un valore che va da 1x a 16x.
+
+Di default, il sensore ritorna i dati in unità `lux`, cioè il risultato di complessi
+calcoli matematici basati sui valori registrati dal sensore.
+
+Questo sensore ritorna valori nel range [0.1; 40'000], castati poi in int siccome vengono
+sempre misurati dei numeri interi.
+
+
 
 |Alimentazione| Pin      |
 |-------------|----------|
@@ -240,7 +256,11 @@ I valori analogici sono 0 se c'è gas e 1 se non ce n'è.
 
 <img src="assets/sensori/max4466.jpg" alt="MAX4466" height="150"  style="float: left; margin:0 10px 0 0">
 
-<br><br><br><br><br><br><br>
+I suoni misurati possono assumere valori da 0.00 a 3.30, cioè il valore in volt.
+Questo valore viene trasformato in decibel utilizzando la formula
+`20 * log(Audio output voltage/ Audio input voltage)` 
+
+<br><br><br><br>
 
 |Alimentazione|Pin|
 |-------------|---|
@@ -315,6 +335,8 @@ per la realizzazione del prodotto.
 
 ## Implementazione
 
+### **FISHINO**
+
 ### Protocollo di comunicazione (non completato e non utilizzato)
 **Al posto di questo, viene utilizato il protocollo HTTP**
 
@@ -356,6 +378,11 @@ per 10, poi vengono trattati nello stesso modo in cui vengono trattati i numeri 
 
 Come detto in origine, nel progetto, questi metodi non vengono utilizzati, siccome è sato deciso di utilizzare il protocollo HTTP, 
 già presente all'interno di librerie per Fishino.
+
+### Lettura dati sensori
+
+#### MAX446 (Sensore suono)
+
 
 ### Connessione fishino
 
