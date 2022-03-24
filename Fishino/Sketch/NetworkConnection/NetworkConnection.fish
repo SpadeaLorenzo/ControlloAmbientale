@@ -10,12 +10,14 @@
 		<key>Fishino</key>
 		<value value="1"/>
 	</Libraries>
-	<OtherFiles/>
+	<OtherFiles>
+		<item>Z:/NetworkConnection/NetworkConnection.ino</item>
+	</OtherFiles>
 	<OpenedFiles>
 		<key>[PROJECT]\NetworkConnection.ino</key>
 		<value>
-			<Cursor value="762"/>
-			<ScrollBar value="12"/>
+			<Cursor value="1142"/>
+			<ScrollBar value="34"/>
 		</value>
 	</OpenedFiles>
 	<CurrentFile>[PROJECT]\NetworkConnection.ino</CurrentFile>
