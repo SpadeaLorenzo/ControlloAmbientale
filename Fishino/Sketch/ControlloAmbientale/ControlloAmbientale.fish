@@ -26,26 +26,31 @@
 	<OpenedFiles>
 		<key>[PROJECT]\ControlloAmbientale.ino</key>
 		<value>
-			<Cursor value="179"/>
-			<ScrollBar value="0"/>
-		</value>
-		<key>C:/Users/Admin/Desktop/ControlloAmbientale/ControlloAmbientale.ino</key>
-		<value>
-			<Cursor value="4307"/>
-			<ScrollBar value="144"/>
+			<Cursor value="7361"/>
+			<ScrollBar value="275"/>
 		</value>
 	</OpenedFiles>
-	<CurrentFile>C:/Users/Admin/Desktop/ControlloAmbientale/ControlloAmbientale.ino</CurrentFile>
+	<CurrentFile>[PROJECT]\ControlloAmbientale.ino</CurrentFile>
 	<SerialMonitor>
 		<Port>COM3</Port>
 		<Speed value="9600"/>
-		<Content>Light Sensor Test
-
-------------------------------------
-Gain:         Auto
-Timing:       13 ms
-------------------------------------
-
-</Content>
+		<Content>Setup
+Seconds since January 1, 1900 : 0
+loop
+Seconds since January 1, 1900 : 0
+loop
+Seconds since January 1, 1900 : 0
+loop
+Seconds since January 1, 1900 : 0
+loop
+Seconds since January 1, 1900 : 0
+loop
+Seconds since January 1, 1900 : 0
+loop
+Seconds since January 1, 1900 : 0
+loop
+Seconds since January 1, 1900 : 0
+loop
+Seconds since January 1, 1900 : </Content>
 	</SerialMonitor>
 </FishIDE>
