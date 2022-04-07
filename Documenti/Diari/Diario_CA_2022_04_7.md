@@ -8,7 +8,6 @@
 |--------------|----------------------------------------------------|---------------------------|
 |09:05 - 12:20 |Finito pacchetto HTTP                               | Erik                      |
 |13:15 - 16:30 |Aggiornamento firmware + codice                     | Erik                      |
-
 |09:05 - 16:30 |Finito pagine html + prove SQLAlchemy               | Nicola                    |
 |09:05 - 12:20 |connessione db + query dal backend                  | Lorenzo                   |
 |13:15 - 16:15 |Fetch dati tra backend e frontend + sessioni        | Lorenzo                   |
