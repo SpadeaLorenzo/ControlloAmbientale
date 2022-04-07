@@ -11,8 +11,12 @@
 #define DHTPIN 2 // what pin the DHT22 is connected to
 #define DHTTYPE DHT22
 DHT dht(DHTPIN, DHTTYPE); // Initialize DHT sensor
+// SD values
+#define CHIP_NAME "dratini" // Fishino's name
+#define SERVER "10.20.5.40:5000" // server's address
+// WIFI Parameters
 #define SSID "Ciscom"
-#define PASSWORD "dio ladro"
+#define PASSWORD "fishino32"
 
 //Variables
 
@@ -122,6 +126,7 @@ void getSdconfigJson()
 	server = json["server"];
 
 	jsonBuffer.clear();
+	Serial.println("SD letta");
 }
 
 void readCo2()
@@ -208,9 +213,9 @@ void readTemperature()
 String createPacket()
 {
 	String json_data = "{";
-
-	json_data = json_data + "\"chip\": \"" + String(chip_number);
-	json_data = json_data + "\"humidity\": \"" + String(humidity);
+	//json_data = json_data + "\"chip\": \"" + String(chip_number);
+	json_data = json_data + "\"chip\": \"" + CHIP_NAME;
+	json_data = json_data + "\", humidity\": \"" + String(humidity);
 	json_data = json_data + "\", \"temperature\": \"" + String(temperature);
 	json_data = json_data + "\", \"airQuality\": \"" + String(airQuality);
 	json_data = json_data + "\", \"decibels\": \"" + String(decibel);
@@ -231,9 +236,10 @@ void sendData(String json_data)
 	}
 
 	client.connect(server, 80);*/
-	Serial.println("POST /welcome/input_data/api/sensors_data HTTP/1.1");
+	Serial.println("POST /fishino/data HTTP/1.1");
 	Serial.print("Host: ");
-	Serial.println(server);
+	//Serial.println(server);
+	Serial.println(SERVER);
 	Serial.println("User-Agent: FISHINO_CA");
 	Serial.println("Content-Type: application/json");
 	Serial.print("Content-Length:");
@@ -247,7 +253,6 @@ void sendData(String json_data)
 void setup(void)
 {
 	Serial.begin(9600);
-	//getSdconfigJson();
 	Serial.println("Light Sensor Test");
 	Serial.println("");
 
@@ -273,8 +278,11 @@ void setup(void)
 	Serial.println();
 
 	dht.begin();
+	
+	//getSdconfigJson();
 
 	//WIFI
+	/*
 	Fishino.setMode(STATION_MODE);
 	while (!Fishino.begin(SSID, PASSWORD)){}
 	Fishino.staStartDHCP();
@@ -283,7 +291,7 @@ void setup(void)
 	{
 		Serial.print(".");
 		delay(500);
-	}
+	}*/
 }
 
 void loop(void)
@@ -293,7 +301,6 @@ void loop(void)
 	readLight();
 	readHumidity();
 	readTemperature();
-
 	Serial.println("\n");
 	sendData(createPacket());
 
