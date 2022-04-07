@@ -54,7 +54,7 @@
 ## Introduzione
 
 ### Informazioni sul progetto
-  - Autori: Erik Pelloni, Nicola Anghileri, Lorenzo Spadea.
+  - Autori: Nicola Anghileri, Erik Pelloni, Lorenzo Spadea.
   - Classe: I3BB
   - Docente responsabile: Geo Petrini
   - Data inizio: 27.02.2022
@@ -76,10 +76,10 @@
 
   -   **Background/Situazione iniziale**
 
-  -   **Descrizione del problema e motivazione**: Che problema ho cercato
-      di risolvere? Questa sezione dovrebbe includere l'importanza del
-      vostro lavoro, la difficoltà dell'area e l'effetto che potrebbe
-      avere se portato a termine con successo.
+  -   **Descrizione del problema e motivazione**: È stato chiesto di realizzare 
+      un sito web dove si potessero vedere grafici rappresentanti valori come temperatura,
+      qualità dell'aria, umidità, livello di rumore e luminosità nel tempo all'interno
+      della Scuola Arti e Mestieri di Trevano.
 
   -   **Approccio/Metodi**: Come ho ottenuto dei progressi? Come ho
       risolto il problema (tecniche…)? Quale è stata l’entità del mio
@@ -125,25 +125,27 @@
 
 
 
-|**ID**	|**Nome**			|**Priorità**|**Vers**|**Note**  |
-|----|------------|--------|----|------|
-|Req-001|Scrivere il codice per la raccolta e trasmissione|1|1.0| |
-|Req-002|Protocollo trasmissione|1|1.0| |
-|Req-003|Progettare e realizzare case|3|1.0| |
-|Req-004|Salvataggio dati in DB|1|1.0| |
-|Req-005|Elaborazione dati tempo reale|1|1.0| |
-|Req-006|Scelta grafici sito|1|1.0| |
-|Req-007|Sistema amministrazione|1|1.0| |
-|Req-008|Host separati per Web e DB|1|1.0| |
-|Req-009|Associazione con MAC Address|1|1.0| |
+|**ID**	|**Nome**			                                    |**Priorità**|**Vers**|**Note**  |
+|-------|-------------------------------------------------|------------|--------|----------|
+|Req-001|Scrivere il codice per la raccolta e trasmissione|1           |1.0     |          |
+|Req-002|Protocollo trasmissione                          |1           |1.0     |          |
+|Req-003|Progettare e realizzare case                     |3           |1.0     |          |
+|Req-004|Salvataggio dati in DB                           |1           |1.0     |          |
+|Req-005|Elaborazione dati tempo reale                    |1           |1.0     |          |
+|Req-006|Scelta grafici sito                              |1           |1.0     |          |
+|Req-007|Sistema amministrazione                          |1           |1.0     |          |
+|Req-008|Host separati per Web e DB                       |1           |1.0     |          |
+|Req-009|Associazione con MAC Address                     |1           |1.0     |          |
 
 
 ### Use case
 <img src="assets/use_case.png" height="400">
 <br> 
 
-- User: Può vedere i grafici dell'ambiente attraverso la GUI.
-- Admin:
+|**Tipo**	|**Cosa può fare**			                                    |
+|---------|-----------------------------------------------------------|
+|User     |Vedere i grafici dell'ambiente attraverso la GUI           |
+|Admin    |<ul><li>Aggiungere ed eliminare istanze di fishino dalla lista</li><li>Eliminare dati</li><li>Creare utenti</li></ul>     |
 
 <br>
 
@@ -490,7 +492,7 @@ facilmente generalizzabili o sono specifici di un caso particolare? ecc
 
 Elenco degli allegati, esempio:
 
--   Diari di lavoro
+-   [Diari di lavoro](../Documenti/Diari)
 
 -   Codici sorgente/documentazione macchine virtuali
 
