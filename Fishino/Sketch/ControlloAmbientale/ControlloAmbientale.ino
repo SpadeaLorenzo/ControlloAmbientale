@@ -8,41 +8,43 @@
 #include <Fishino.h>
 
 //Constants
-#define DHTPIN 2          // what pin the DHT22 is connected to
+#define DHTPIN 2 // what pin the DHT22 is connected to
 #define DHTTYPE DHT22
 DHT dht(DHTPIN, DHTTYPE); // Initialize DHT sensor
+// SD values
+#define CHIP_NAME "dratini" // Fishino's name
+#define SERVER "10.20.5.40:5000" // server's address
+// WIFI Parameters
 #define SSID "Ciscom"
-#define PASSWORD "dio ladro"
-
+#define PASSWORD "fishino32"
 
 //Variables
 
 StaticJsonBuffer<170> jsonBuffer;
-JsonObject& json = jsonBuffer.createObject();
+JsonObject &json = jsonBuffer.createObject();
 
-const char* chip_number;
-const char* ssid;
-const char* password;
-const char* server;
+const char *chip_number;
+const char *ssid;
+const char *password;
+const char *server;
 
 //Fishino values
 
-
 // Sensor values
-float humidity;    // Stores humidity value
+float humidity;	   // Stores humidity value
 float temperature; // Stores temperature value
-float decibel;     // Stores decibel value
-int airQuality;    // Stores air quality value
-int light;         // Stores light value
+float decibel;	   // Stores decibel value
+int airQuality;	   // Stores air quality value
+int light;		   // Stores light value
 
 Adafruit_TSL2561_Unified tsl = Adafruit_TSL2561_Unified(TSL2561_ADDR_FLOAT, 12345);
-
 
 /**
  * Displays some basic information on the TSL2561 sensor from the unified
  * sensor API sensor_t type.
  */
-void displaySensorDetails() {
+void displaySensorDetails()
+{
 	sensor_t sensor;
 	tsl.getSensor(&sensor);
 	Serial.println("------------------------------------");
@@ -70,7 +72,8 @@ void displaySensorDetails() {
  * Configures the gain and integration time for the TSL2561
  */
 /**************************************************************************/
-void configureSensor() {
+void configureSensor()
+{
 	/* You can also manually set the gain or enable auto-gain support */
 	// tsl.setGain(TSL2561_GAIN_1X);      /* No gain ... use in bright light to avoid sensor saturation */
 	// tsl.setGain(TSL2561_GAIN_16X);     /* 16x gain ... use in low light to boost sensitivity */
@@ -90,9 +93,11 @@ void configureSensor() {
 	Serial.println("------------------------------------");
 }
 
-void getSdconfigJson() {
+void getSdconfigJson()
+{
 	SdFat sd;
-	while (!sd.begin(SDCS)) {
+	while (!sd.begin(SDCS))
+	{
 	}
 	File config_file;
 	char config_line[180];
@@ -102,16 +107,18 @@ void getSdconfigJson() {
 	config_file = sd.open("config.txt", FILE_READ);
 
 	char_index = 0;
-	while (config_file.available()) {
+	while (config_file.available())
+	{
 		byte_config = config_file.read();
-		if (byte_config >= 32 && byte_config <= 126) {
+		if (byte_config >= 32 && byte_config <= 126)
+		{
 			config_line[char_index] = (char)byte_config;
 		}
 		char_index++;
 	}
 	config_file.close();
 	jsonBuffer.clear();
-	JsonObject& json = jsonBuffer.parseObject(config_line);
+	JsonObject &json = jsonBuffer.parseObject(config_line);
 
 	chip_number = json["chip_number"];
 	ssid = json["ssid"];
@@ -119,21 +126,145 @@ void getSdconfigJson() {
 	server = json["server"];
 
 	jsonBuffer.clear();
+	Serial.println("SD letta");
 }
 
-void setup(void) {
+void readCo2()
+{
+	airQuality = analogRead(0); // Read analog input pin A0
+	//double ppm_percentage = (double)airQuality/100000;
+
+	Serial.print("Air Quality: ");
+	Serial.println(airQuality); // Print the value read
+	//	Serial.println("\%");
+}
+
+void readDecibels()
+{
+	int sample;					 // Sample used by max4466 sensor
+	const int sampleWindow = 50; // Sample window width in mS (50 mS = 20Hz)
+	long startMillis = millis(); // Start of sample window
+	int peakToPeak = 0;			 // peak-to-peak level
+
+	int signalMax = 0;
+	int signalMin = 1024;
+
+	// collect data for 50 mS
+	while (millis() - startMillis < sampleWindow)
+	{
+		sample = analogRead(A1);
+		if (sample < 1024)
+		{ // toss out spurious readings
+			if (sample > signalMax)
+			{
+				signalMax = sample; // save just the max levels
+			}
+			else if (sample < signalMin)
+			{
+				signalMin = sample; // save just the min levels
+			}
+		}
+	}
+	peakToPeak = signalMax - signalMin;						// max - min = peak-peak amplitude
+	double volts = ((peakToPeak * 3.3) / 1024) /** 0.707*/; // 3.3V
+	double first = log10(volts / 0.00631) * 20;
+	decibel = first /*+ 94 - 44*/;
+	Serial.print("Decibels: ");
+	Serial.print(decibel);
+	Serial.print(" , Light: ");
+}
+
+void readLight()
+{
+	sensors_event_t event; // Get a new sensor event
+	tsl.getEvent(&event);
+
+	if (event.light)
+	{
+		// Display the results (light is measured in lux)
+		Serial.print((int)event.light);
+		light = (int)event.light;
+		Serial.println(" lux");
+	}
+	else
+	{
+		/* If event.light = 0 lux the sensor is probably saturated
+		   and no reliable data could be generated! */
+		Serial.println("Sensor overload");
+	}
+}
+
+void readHumidity()
+{
+	humidity = dht.readHumidity();
+	Serial.print("Humidity: ");
+	Serial.print(humidity);
+	Serial.print(" \%");
+}
+
+void readTemperature()
+{
+	temperature = dht.readTemperature();
+	Serial.print(", Temperature: ");
+	Serial.print(temperature);
+	Serial.println(" °C");
+}
+
+String createPacket()
+{
+	String json_data = "{";
+	//json_data = json_data + "\"chip\": \"" + String(chip_number);
+	json_data = json_data + "\"chip\": \"" + CHIP_NAME;
+	json_data = json_data + "\", humidity\": \"" + String(humidity);
+	json_data = json_data + "\", \"temperature\": \"" + String(temperature);
+	json_data = json_data + "\", \"airQuality\": \"" + String(airQuality);
+	json_data = json_data + "\", \"decibels\": \"" + String(decibel);
+	json_data = json_data + "\", \"light\": \"" + String(light);
+	json_data = json_data + "\"}";
+
+	return json_data;
+}
+
+void sendData(String json_data)
+{
+	/*
+	FishinoClient client;
+
+	if (client.status())
+	{
+		client.stop();
+	}
+
+	client.connect(server, 80);*/
+	Serial.println("POST /fishino/data HTTP/1.1");
+	Serial.print("Host: ");
+	//Serial.println(server);
+	Serial.println(SERVER);
+	Serial.println("User-Agent: FISHINO_CA");
+	Serial.println("Content-Type: application/json");
+	Serial.print("Content-Length:");
+	Serial.println(json_data.length());
+	Serial.println();
+	Serial.println(json_data);
+	//client.flush();
+	//client.stop();
+}
+
+void setup(void)
+{
 	Serial.begin(9600);
-	//getSdconfigJson();
 	Serial.println("Light Sensor Test");
 	Serial.println("");
 
 	/* Initialise the sensor */
 	// tsl.begin() to default to Wire,
 	// tsl.begin(&Wire2) directs api to use Wire2, etc.
-	if (!tsl.begin()) {
+	if (!tsl.begin())
+	{
 		Serial.print("ERROR: no TSL2561 detected");
 
-		while (!tsl.begin()) { // waits until the sensor is connected
+		while (!tsl.begin())
+		{ // waits until the sensor is connected
 			Serial.print(".");
 			delay(2000);
 		}
@@ -148,127 +279,30 @@ void setup(void) {
 
 	dht.begin();
 	
+	//getSdconfigJson();
+
 	//WIFI
-  while (!Fishino.begin(SSID, PASSWORD)) {}
-  while (Fishino.status() != STATION_GOT_IP) {
-      Serial.println("Connecting");
-  delay(500);
-  } 
+	/*
+	Fishino.setMode(STATION_MODE);
+	while (!Fishino.begin(SSID, PASSWORD)){}
+	Fishino.staStartDHCP();
+	Serial.print("Connecting..");
+	while (Fishino.status() != STATION_GOT_IP)
+	{
+		Serial.print(".");
+		delay(500);
+	}*/
 }
 
-void readCo2() {
-	airQuality = analogRead(0); // Read analog input pin A0
-	//double ppm_percentage = (double)airQuality/100000;
-
-	Serial.print("Air Quality: ");
-	Serial.println(airQuality); // Print the value read
-//	Serial.println("\%");
-}
-
-void readDecibels() {
-	int sample;        // Sample used by max4466 sensor
-	const int sampleWindow = 50; // Sample window width in mS (50 mS = 20Hz)
-	long startMillis = millis(); // Start of sample window
-	int peakToPeak = 0;          // peak-to-peak level
-
-	int signalMax = 0;
-	int signalMin = 1024;
-
-	// collect data for 50 mS
-	while (millis() - startMillis < sampleWindow) {
-		sample = analogRead(A1);
-		if (sample < 1024) { // toss out spurious readings
-			if (sample > signalMax) {
-				signalMax = sample; // save just the max levels
-			} else
-				if (sample < signalMin) {
-					signalMin = sample; // save just the min levels
-				}
-		}
-	}
-	peakToPeak = signalMax - signalMin;      // max - min = peak-peak amplitude
-	double volts = ((peakToPeak * 3.3) / 1024) /** 0.707*/; // 3.3V
-	double first = log10(volts / 0.00631) * 20;
-	decibel = first /*+ 94 - 44*/;
-	Serial.print("Decibels: ");
-	Serial.print(decibel);
-	Serial.print(" , Light: ");
-}
-
-void readLight() {
-	sensors_event_t event; // Get a new sensor event
-	tsl.getEvent(&event);
-
-	if (event.light) {
-		// Display the results (light is measured in lux)
-		Serial.print((int)event.light);
-		light = (int)event.light;
-		Serial.println(" lux");
-	} else {
-		/* If event.light = 0 lux the sensor is probably saturated
-		   and no reliable data could be generated! */
-		Serial.println("Sensor overload");
-	}
-}
-
-void readHumidity() {
-	humidity = dht.readHumidity();
-	Serial.print("Humidity: ");
-	Serial.print(humidity);
-	Serial.print(" \%");
-}
-
-void readTemperature() {
-	temperature = dht.readTemperature();
-	Serial.print(", Temperature: ");
-	Serial.print(temperature);
-	Serial.println(" °C");
-}
-String createPacket() {
-	String json_data = "{";
-
-	//json_data = json_data + "\"chip\": \"" + String(chip_number);
-	json_data = json_data + "\"humidity\": \"" + String(humidity);
-	json_data = json_data + "\", \"temperature\": \"" + String(temperature);
-	json_data = json_data + "\", \"airQuality\": \"" + String(airQuality);
-	json_data = json_data + "\", \"decibels\": \"" + String(decibel);
-	json_data = json_data + "\", \"light\": \"" + String( light);
-	json_data = json_data + "\"}";
-
-	return json_data;
-}
-
-/*void sendData() {
-	FishinoClient client;
-
-	if (client.status()) {
-		client.stop();
-	}
-
-	client.connect(server, 80);
-	Serial.println("POST /welcome/input_data/api/sensors_data HTTP/1.1");
-	Serial.print("Host: ");
-	Serial.println(server);
-	Serial.println("User-Agent: SMARTINO");
-	Serial.println("Content-Type: application/json");
-	Serial.print("Content-Length:");
-	Serial.println(data_string.length());
-	Serial.println();
-	Serial.println(data_string);
-	client.flush();
-	client.stop();
-}
-*/
-void loop(void) {
+void loop(void)
+{
 	readCo2();
 	readDecibels();
 	readLight();
 	readHumidity();
 	readTemperature();
-	//getSdconfigJson();
-
 	Serial.println("\n");
-	Serial.println(createPacket());
+	sendData(createPacket());
 
 	Serial.println("\n\n\n");
 	delay(1500);

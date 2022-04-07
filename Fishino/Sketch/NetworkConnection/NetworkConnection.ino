@@ -4,7 +4,7 @@
 
 
 #define MIO_SSID "Ciscom"
-#define MIA_PASSWORD "dio ladro"
+#define MIA_PASSWORD "fishino32"
 
 
 void setup() {
