@@ -492,7 +492,7 @@ facilmente generalizzabili o sono specifici di un caso particolare? ecc
 
 Elenco degli allegati, esempio:
 
--   [Diari di lavoro](../Documenti/Diari)
+-   [Diari di lavoro](../Diari)
 
 -   Codici sorgente/documentazione macchine virtuali
 
