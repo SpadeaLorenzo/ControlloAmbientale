@@ -27,98 +27,97 @@
 	<OpenedFiles>
 		<key>[PROJECT]\ControlloAmbientale.ino</key>
 		<value>
-			<Cursor value="5719"/>
-			<ScrollBar value="198"/>
+			<Cursor value="6271"/>
+			<ScrollBar value="310"/>
 		</value>
 	</OpenedFiles>
 	<CurrentFile>[PROJECT]\ControlloAmbientale.ino</CurrentFile>
 	<SerialMonitor>
 		<Port>COM3</Port>
 		<Speed value="9600"/>
-		<Content>Light Sensor Test
+		<Content>Connecting to WIFI...........Init sensors
 
+TSL configuration
 ------------------------------------
 Gain:         Auto
 Timing:       13 ms
 ------------------------------------
 
-Air Quality: 38
-Decibels: 44.07 , Light: 393 lux
-Humidity: 32.70 %, Temperature: 26.60 °C
 
 
-POST /fishino/data HTTP/1.1
-Host: 10.20.5.40:5000
+pacchetto ok
+POST /ping HTTP/1.1
+Host: controlloambientale.pythonanywhere.com
 User-Agent: FISHINO_CA
 Content-Type: application/json
-Content-Length:121
+Content-Length: 107
 
-{&quot; chip&quot;: &quot;dratini&quot;, humidity&quot;: &quot;32.70&quot;, &quot;temperature&quot;: &quot;26.60&quot;, &quot;airQuality&quot;: &quot;38&quot;, &quot;decibels&quot;: &quot;44.07&quot;, &quot;light&quot;: &quot;393&quot;}
-
-
+{&quot;name&quot;: &quot;dratini&quot;, &quot;humidity&quot;: 31.70, &quot;brightness&quot;: 454, &quot;noise&quot;: 40.65, &quot;co2&quot;: 952, &quot;temperature&quot;: 25.70}
 
 
-Air Quality: 39
-Decibels: 22.12 , Light: 390 lux
-Humidity: 32.70 %, Temperature: 26.60 °C
 
 
-POST /fishino/data HTTP/1.1
-Host: 10.20.5.40:5000
+
+pacchetto ok
+POST /ping HTTP/1.1
+Host: controlloambientale.pythonanywhere.com
 User-Agent: FISHINO_CA
 Content-Type: application/json
-Content-Length:121
+Content-Length: 106
 
-{&quot; chip&quot;: &quot;dratini&quot;, humidity&quot;: &quot;32.70&quot;, &quot;temperature&quot;: &quot;26.60&quot;, &quot;airQuality&quot;: &quot;39&quot;, &quot;decibels&quot;: &quot;22.12&quot;, &quot;light&quot;: &quot;390&quot;}
-
-
+{&quot;name&quot;: &quot;dratini&quot;, &quot;humidity&quot;: 31.60, &quot;brightness&quot;: 452, &quot;noise&quot;: 40.77, &quot;co2&quot;: 66, &quot;temperature&quot;: 25.70}
 
 
-Air Quality: 38
-Decibels: 21.77 , Light: 387 lux
-Humidity: 33.10 %, Temperature: 26.60 °C
 
 
-POST /fishino/data HTTP/1.1
-Host: 10.20.5.40:5000
+
+pacchetto ok
+POST /ping HTTP/1.1
+Host: controlloambientale.pythonanywhere.com
 User-Agent: FISHINO_CA
 Content-Type: application/json
-Content-Length:121
+Content-Length: 106
 
-{&quot; chip&quot;: &quot;dratini&quot;, humidity&quot;: &quot;33.10&quot;, &quot;temperature&quot;: &quot;26.60&quot;, &quot;airQuality&quot;: &quot;38&quot;, &quot;decibels&quot;: &quot;21.77&quot;, &quot;light&quot;: &quot;387&quot;}
-
-
+{&quot;name&quot;: &quot;dratini&quot;, &quot;humidity&quot;: 31.10, &quot;brightness&quot;: 449, &quot;noise&quot;: 40.69, &quot;co2&quot;: 55, &quot;temperature&quot;: 26.00}
 
 
-Air Quality: 39
-Decibels: 21.40 , Light: 388 lux
-Humidity: 33.10 %, Temperature: 26.60 °C
 
 
-POST /fishino/data HTTP/1.1
-Host: 10.20.5.40:5000
+
+pacchetto ok
+POST /ping HTTP/1.1
+Host: controlloambientale.pythonanywhere.com
 User-Agent: FISHINO_CA
 Content-Type: application/json
-Content-Length:121
+Content-Length: 106
 
-{&quot; chip&quot;: &quot;dratini&quot;, humidity&quot;: &quot;33.10&quot;, &quot;temperature&quot;: &quot;26.60&quot;, &quot;airQuality&quot;: &quot;39&quot;, &quot;decibels&quot;: &quot;21.40&quot;, &quot;light&quot;: &quot;388&quot;}
-
-
+{&quot;name&quot;: &quot;dratini&quot;, &quot;humidity&quot;: 31.80, &quot;brightness&quot;: 290, &quot;noise&quot;: 30.01, &quot;co2&quot;: 49, &quot;temperature&quot;: 25.80}
 
 
-Air Quality: 38
-Decibels: 21.77 , Light: 381 lux
-Humidity: 34.10 %, Temperature: 26.60 °C
 
 
-POST /fishino/data HTTP/1.1
-Host: 10.20.5.40:5000
+
+pacchetto ok
+POST /ping HTTP/1.1
+Host: controlloambientale.pythonanywhere.com
 User-Agent: FISHINO_CA
 Content-Type: application/json
-Content-Length:121
+Content-Length: 106
 
-{&quot; chip&quot;: &quot;dratini&quot;, humidity&quot;: &quot;34.10&quot;, &quot;temperature&quot;: &quot;26.60&quot;, &quot;airQuality&quot;: &quot;38&quot;, &quot;decibels&quot;: &quot;21.77&quot;, &quot;light&quot;: &quot;381&quot;}
+{&quot;name&quot;: &quot;dratini&quot;, &quot;humidity&quot;: 30.70, &quot;brightness&quot;: 431, &quot;noise&quot;: 40.27, &quot;co2&quot;: 47, &quot;temperature&quot;: 25.90}
 
+
+
+
+
+pacchetto ok
+POST /ping HTTP/1.1
+Host: controlloambientale.pythonanywhere.com
+User-Agent: FISHINO_CA
+Content-Type: application/json
+Content-Length: 106
+
+{&quot;name&quot;: &quot;dratini&quot;, &quot;humidity&quot;: 30.80, &quot;brightness&quot;: 436, &quot;noise&quot;: 22.12, &quot;co2&quot;: 43, &quot;temperature&quot;: 26.10}
 
 
 

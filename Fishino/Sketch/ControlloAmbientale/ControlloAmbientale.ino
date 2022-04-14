@@ -7,22 +7,30 @@
 #include <ArduinoJson.h>
 #include <Fishino.h>
 
+// SD chip select pin
+#ifdef SDCS
+	const uint8_t chipSelect = SDCS;
+#else
+	const uint8_t chipSelect = SS;
+#endif
+
 //Constants
 #define DHTPIN 2 // what pin the DHT22 is connected to
 #define DHTTYPE DHT22
 DHT dht(DHTPIN, DHTTYPE); // Initialize DHT sensor
-// SD values
+// SD values (hard coded)
 #define CHIP_NAME "dratini" // Fishino's name
-#define SERVER "10.20.5.40:5000" // server's address
+#define SERVER "controlloambientale.pythonanywhere.com" // server's address
 // WIFI Parameters
-#define SSID "Ciscom"
-#define PASSWORD "fishino32"
+#define SSID "M306"
+#define PASSWORD "306piccoleonde"
 
 //Variables
 
 StaticJsonBuffer<170> jsonBuffer;
 JsonObject &json = jsonBuffer.createObject();
 
+// SD values (read)
 const char *chip_number;
 const char *ssid;
 const char *password;
@@ -40,7 +48,7 @@ int light;		   // Stores light value
 Adafruit_TSL2561_Unified tsl = Adafruit_TSL2561_Unified(TSL2561_ADDR_FLOAT, 12345);
 
 /**
- * Displays some basic information on the TSL2561 sensor from the unified
+ * Displays some information on the TSL2561 sensor from the unified
  * sensor API sensor_t type.
  */
 void displaySensorDetails()
@@ -71,7 +79,6 @@ void displaySensorDetails()
 /**
  * Configures the gain and integration time for the TSL2561
  */
-/**************************************************************************/
 void configureSensor()
 {
 	/* You can also manually set the gain or enable auto-gain support */
@@ -84,7 +91,7 @@ void configureSensor()
 	// tsl.setIntegrationTime(TSL2561_INTEGRATIONTIME_101MS);  /* medium resolution and speed   */
 	// tsl.setIntegrationTime(TSL2561_INTEGRATIONTIME_402MS);  /* 16-bit data but slowest conversions */
 
-	/* Update these values depending on what you've set above! */
+	Serial.println("TSL configuration");
 	Serial.println("------------------------------------");
 	Serial.print("Gain:         ");
 	Serial.println("Auto");
@@ -95,18 +102,21 @@ void configureSensor()
 
 void getSdconfigJson()
 {
+	Serial.println("Init SD card");
 	SdFat sd;
-	while (!sd.begin(SDCS))
+
+	while (!sd.begin(chipSelect, SD_SCK_MHZ(15)))
 	{
+		sd.initErrorPrint();
+		//Serial.print(".");
 	}
 	File config_file;
 	char config_line[180];
 	int char_index = 0;
 	char byte_config;
 
+	Serial.println("Reading config");
 	config_file = sd.open("config.txt", FILE_READ);
-
-	char_index = 0;
 	while (config_file.available())
 	{
 		byte_config = config_file.read();
@@ -118,6 +128,7 @@ void getSdconfigJson()
 	}
 	config_file.close();
 	jsonBuffer.clear();
+	Serial.println("Parsing config data");
 	JsonObject &json = jsonBuffer.parseObject(config_line);
 
 	chip_number = json["chip_number"];
@@ -131,12 +142,14 @@ void getSdconfigJson()
 
 void readCo2()
 {
+	// Store the value into the variable
 	airQuality = analogRead(0); // Read analog input pin A0
+	
 	//double ppm_percentage = (double)airQuality/100000;
-
-	Serial.print("Air Quality: ");
+	
+	/*Serial.print("Air Quality: ");
 	Serial.println(airQuality); // Print the value read
-	//	Serial.println("\%");
+	Serial.println("\%");*/
 }
 
 void readDecibels()
@@ -167,11 +180,14 @@ void readDecibels()
 	}
 	peakToPeak = signalMax - signalMin;						// max - min = peak-peak amplitude
 	double volts = ((peakToPeak * 3.3) / 1024) /** 0.707*/; // 3.3V
-	double first = log10(volts / 0.00631) * 20;
+	double first = log10(volts / .00631) * 20;
+	
+	// Store the value into the variable
 	decibel = first /*+ 94 - 44*/;
-	Serial.print("Decibels: ");
+	
+	/*Serial.print("Decibels: ");
 	Serial.print(decibel);
-	Serial.print(" , Light: ");
+	Serial.print(" , Light: ");*/
 }
 
 void readLight()
@@ -181,10 +197,12 @@ void readLight()
 
 	if (event.light)
 	{
-		// Display the results (light is measured in lux)
-		Serial.print((int)event.light);
+		//Serial.print((int)event.light);
+		
+		// Store the value into the variable
 		light = (int)event.light;
-		Serial.println(" lux");
+		
+		//Serial.println(" lux");
 	}
 	else
 	{
@@ -196,69 +214,93 @@ void readLight()
 
 void readHumidity()
 {
+	// Store the value into the variable
 	humidity = dht.readHumidity();
-	Serial.print("Humidity: ");
+	/*Serial.print("Humidity: ");
 	Serial.print(humidity);
-	Serial.print(" \%");
+	Serial.print(" \%");*/
 }
 
 void readTemperature()
 {
 	temperature = dht.readTemperature();
-	Serial.print(", Temperature: ");
+	/*Serial.print(", Temperature: ");
 	Serial.print(temperature);
-	Serial.println(" °C");
+	Serial.println(" °C");*/
 }
 
 String createPacket()
 {
 	String json_data = "{";
-	//json_data = json_data + "\"chip\": \"" + String(chip_number);
-	json_data = json_data + "\"chip\": \"" + CHIP_NAME;
-	json_data = json_data + "\", humidity\": \"" + String(humidity);
-	json_data = json_data + "\", \"temperature\": \"" + String(temperature);
-	json_data = json_data + "\", \"airQuality\": \"" + String(airQuality);
-	json_data = json_data + "\", \"decibels\": \"" + String(decibel);
-	json_data = json_data + "\", \"light\": \"" + String(light);
-	json_data = json_data + "\"}";
+	json_data = json_data + "\"name\": \"" + CHIP_NAME + 
+	"\", \"humidity\": " + String(humidity) + 
+	", \"brightness\": " + String(light) + 
+	", \"noise\": " + String(decibel) + 
+	", \"co2\": " + String(airQuality)+ 
+	", \"temperature\": " + String(temperature) + "}";
 
 	return json_data;
 }
 
 void sendData(String json_data)
 {
-	/*
 	FishinoClient client;
 
 	if (client.status())
 	{
 		client.stop();
 	}
+	
+	client.connect(SERVER, 80);
+	client.println("POST /fishino/data HTTP/1.1");
+	client.print("Host: ");
+	client.println(SERVER);
+	client.println("User-Agent: FISHINO_CA");
+	client.println("Content-Type: application/json");
+	client.print("Content-Length: ");
+	client.println(json_data.length());
+	client.println();
+	client.print(json_data);
+	
+	Serial.println("pacchetto ok");
+	
+	client.flush();
+	client.stop();
+}
 
-	client.connect(server, 80);*/
-	Serial.println("POST /fishino/data HTTP/1.1");
+void testPacket(String json_data){
+	Serial.println("POST /ping HTTP/1.1");
 	Serial.print("Host: ");
-	//Serial.println(server);
 	Serial.println(SERVER);
 	Serial.println("User-Agent: FISHINO_CA");
 	Serial.println("Content-Type: application/json");
-	Serial.print("Content-Length:");
+	Serial.print("Content-Length: ");
 	Serial.println(json_data.length());
 	Serial.println();
-	Serial.println(json_data);
-	//client.flush();
-	//client.stop();
+	Serial.print(json_data);
 }
 
 void setup(void)
 {
 	Serial.begin(9600);
-	Serial.println("Light Sensor Test");
+	
+	//getSdconfigJson();
+	
+	//WIFI
+	Fishino.setMode(STATION_MODE);
+	while (!Fishino.begin(SSID, PASSWORD)){}
+	Fishino.staStartDHCP();
+	Serial.print("Connecting to WIFI..");
+	while (Fishino.status() != STATION_GOT_IP)
+	{
+		Serial.print(".");
+		delay(500);
+	}
+	
+	Serial.println("Init sensors");
 	Serial.println("");
 
 	/* Initialise the sensor */
-	// tsl.begin() to default to Wire,
-	// tsl.begin(&Wire2) directs api to use Wire2, etc.
 	if (!tsl.begin())
 	{
 		Serial.print("ERROR: no TSL2561 detected");
@@ -275,23 +317,9 @@ void setup(void)
 
 	/* Setup the sensor gain and integration time */
 	configureSensor();
-	Serial.println();
-
-	dht.begin();
 	
-	//getSdconfigJson();
-
-	//WIFI
-	/*
-	Fishino.setMode(STATION_MODE);
-	while (!Fishino.begin(SSID, PASSWORD)){}
-	Fishino.staStartDHCP();
-	Serial.print("Connecting..");
-	while (Fishino.status() != STATION_GOT_IP)
-	{
-		Serial.print(".");
-		delay(500);
-	}*/
+	Serial.println();
+	dht.begin();
 }
 
 void loop(void)
@@ -302,8 +330,14 @@ void loop(void)
 	readHumidity();
 	readTemperature();
 	Serial.println("\n");
-	sendData(createPacket());
-
+	String packet = createPacket();
+	//Serial.println(createPacket());
+	sendData(packet);
+	//Serial.println(packet);
+	//Serial.println(server);
+	testPacket(packet);
+	
 	Serial.println("\n\n\n");
-	delay(1500);
+	delay(300000);
 }
+ 
