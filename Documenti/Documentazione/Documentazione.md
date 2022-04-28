@@ -62,64 +62,36 @@
 
 ### Abstract
 
-  Questo progetto viene creato per scoprire come sono l'umidità, la temperatura, la qualità dell'aria e il rumore, all'interno della nostra sede scolastica.
-
-  In this guide will get step by step into the realization of..
-
-  E’ una breve e accurata rappresentazione dei contenuti di un documento,
-  senza notazioni critiche o valutazioni. Lo scopo di un abstract efficace
-  dovrebbe essere quello di far conoscere all’utente il contenuto di base
-  di un documento e metterlo nella condizione di decidere se risponde ai
-  suoi interessi e se è opportuno il ricorso al documento originale.
-
-  Può contenere alcuni o tutti gli elementi seguenti:
-
-  -   **Background/Situazione iniziale**
-
-  -   **Descrizione del problema e motivazione**: È stato chiesto di realizzare 
-      un sito web dove si potessero vedere grafici rappresentanti valori come temperatura,
-      qualità dell'aria, umidità, livello di rumore e luminosità nel tempo all'interno
-      della Scuola Arti e Mestieri di Trevano.
-
-  -   **Approccio/Metodi**: Come ho ottenuto dei progressi? Come ho
-      risolto il problema (tecniche…)? Quale è stata l’entità del mio
-      lavoro? Che fattori importanti controllo, ignoro o misuro?
-
-  -   **Risultati**: Quale è la risposta? Quali sono i risultati? Quanto è
-      più veloce, più sicuro, più economico o in qualche altro aspetto
-      migliore di altri prodotti/soluzioni?
-
-  Esempio di abstract:
-
-  > *As the size and complexity of today’s most modern computer chips
-  > increase, new techniques must be developed to effectively design and
-  > create Very Large Scale Integration chips quickly. For this project, a
-  > new type of hardware compiler is created. This hardware compiler will
-  > read a C++ program, and physically design a suitable microprocessor
-  > intended for running that specific program. With this new and powerful
-  > compiler, it is possible to design anything from a small adder, to a
-  > microprocessor with millions of transistors. Designing new computer
-  > chips, such as the Pentium 4, can require dozens of engineers and
-  > months of time. With the help of this compiler, a single person could
-  > design such a large-scale microprocessor in just weeks.*
+  > *Nowadays it can be important and interesting to know information about the 
+  > ambiental situation in workplaces.
+  > The "Controllo Ambientale" project allows you to analyse data on temperature, 
+  > humidity, air quality, noise and brightness in a very simple way, 
+  > also using simple and effective graphics.
+  > So there is a website that provides graphs containing this data.
+  > Furthermore, it is possible to see the trend of these data over time, also thanks to averages.
+  > This data is measured by sensors connected to devices located at various places within the fourth floor of the school.*
 
 ### Scopo
 
-  Lo scopo del progetto è quello di creare un applicativo WEB, che tramite l'uso di un 
-  fishino, andrà a fornire dei dati ambientali che verranno poi mostrati sotto forma di grafici.
-  I dati che verrano elaborati sono riguardanti la luminosità dell'ambiente, l'umidità,
-  la quantità di CO2 presente nell'aria e 
-  la temperatura. Grazie all'interfaccia WEB si potrà intuitivamente controllare lo stato 
-  dell'ambiente dove verrà posizionato il fishino
+  Lo scopo del progetto è quello di creare un applicativo Web, che tramite l'uso di diversi 
+  fishino, posizionati all'interno della scuola, andrà a fornire dei dati ambientali (poi mostrati sotto forma di grafici).
+  I dati che verrano elaborati riguardano la luminosità dell'ambiente, l'umidità,
+  la quantità di CO2 presente nell'aria e la temperatura. Grazie all'interfaccia WEB si 
+  potrà intuitivamente controllare lo stato dell'ambiente dove si trova un fishino specifico.
 
 
 ## Analisi
 
 ### Analisi del dominio
 
-  In questo momento non sappiamo a cosa è sottoposto il nostro corpo mentre siamo all'interno della nostra sede scolastica, questo è il motivo per cui esiste il nostro progetto, verranno installati diversi apparecchi che raccolgono dati come la qualità dell'aria, il rumore, l'umidità e la temperatura.
-  Grazie a questi dati raccolti ogni 5 minuti in diverse posizioni all'interno della nostra sede scolastica, potremo scoprire se esistono dei problemi, come ad esempio la qualità dell'aria troppo bassa ecc...
-  Al momento in alcune classi sono già presenti dei sensori che forniscono dei dati riguardo il valore di CO2, il tutto però non è molto funzionante e non facilmente accessibile agli allievi. Questo verrà migliorato e facilitato grazie al nostro progetto, che raccoglierà 5 dati importanti, già elencati in precedenza e verranno elaborati con dei grafici per fare in modo che il tutto sia più facile da capire e da utilizzare.
+  In questo momento non sappiamo a cosa sia sottoposto il nostro corpo mentre siamo all'interno della nostra sede scolastica, 
+  questo è il motivo per cui esiste il nostro progetto, verranno installati diversi apparecchi che raccolgono 
+  dati inerenti alla qualità dell'aria, al rumore, all'umidità e alla temperatura.
+  Grazie a questi dati raccolti ogni 5 minuti in diverse posizioni all'interno della nostra sede scolastica, 
+  potremo scoprire se esistono dei problemi, come ad esempio la qualità dell'aria troppo bassa ecc...
+  Al momento in alcune classi sono già presenti dei sensori che forniscono dei dati riguardo il valore di CO2,
+  il tutto però non è facilmente accessibile agli allievi. Questo verrà migliorato e facilitato grazie al nostro progetto, il quale si occuperà di raccogliere i 5 dati importanti, 
+  già elencati in precedenza e di renderli accessibili tramite la creazione di grafici intuitivi.
 
 ### Analisi e specifica dei requisiti
 
@@ -140,7 +112,7 @@
 
 ### Use case
 <img src="assets/use_case.png" height="400">
-<br> 
+<br><br>
 
 |**Tipo**	|**Cosa può fare**			                                    |
 |---------|-----------------------------------------------------------|
@@ -151,24 +123,20 @@
 
 ### Pianificazione
 
-Prima di stabilire una pianificazione bisogna avere almeno una vaga idea
-del modello di sviluppo che si intende adottare. In questa sezione
-bisognerà inserire il modello concettuale di sviluppo che si seguirà
-durante il progetto. Gli elementi di riferimento per una buona
-pianificazione derivano da una scomposizione top-down della problematica
-del progetto.
+Una delle prime attività svolte dal gruppo è stata la pianificazione. Per svolgerla
+abbiamo usato Microsoft Project come supporto per creare il diagramma di Gantt.
 
-La pianificazione può essere rappresentata mediante un diagramma di
-Gantt.
+Abbiamo deciso i diversi ruoli e abbiamo strutturato il diagramma in base a quest'ultimi.
+Le attività all'interno dell'implementazione sono divise nei sottogruppi `Fishino`, `Front-End` e `Back-End`.
 
-Se si usano altri metodi di pianificazione (es scrum), dovranno apparire
-in questo capitolo.
+Un diagramma di Gantt è comodo per la pianificazione di un progetto. 
+Con l'ausilio di questo strumento è possibile scomporre un grande progetto in piccole attività utilizzando il metodo [top-down](https://it.wikipedia.org/wiki/Progettazione_top-down_e_bottom-up),
+rendendolo più semplice e chiaro da affrontare.
 
 #### Gantt preventivo
 
-![gantt_preventivo](assets\Gantt_Preventivo_ControlloAmbientale.png)
+![gantt_preventivo](assets/Gantt_Preventivo_ControlloAmbientale.png)
 
-#### Descrizione gantt preventivo
 
 ### Analisi dei mezzi
 
@@ -198,8 +166,7 @@ relativa, Byte alto temperatura, Byte basso temperatura, Checksum.
 
 I valori decimali vengono moltiplicati per 10, come nell'esempio seguente:
 
-`Se l'umidità è del 59.4%, verrà inviato il numero 594 in questa composizione: 
-il primo byte è 0000 0010 e il secondo è 0101 0010. `
+`Se l'umidità è del 59.4%, verrà salvato il numero 594 in questa composizione: il primo byte è 0000 0010 e il secondo è 0101 0010.`
 
 La stessa cosa avviene anche per la temperatura (terzo e quarto byte).
 L'ultimo bit (il 16°), però, rappresenta il segno: vale 1 se la temperatura
@@ -218,7 +185,7 @@ L'ultimo bit (il 16°), però, rappresenta il segno: vale 1 se la temperatura
 Questo sensore misura la qualità dell'aria e i gas contenuti in essa.
 
 La lettura analogica ritorna 1023 (valore massimo) se non viene rilevato gas. 
-Quando c'è gas, il valore sarà più alto. **???**
+Quando c'è gas, il valore sarà più alto.
 Dalle misure che ho preso in classe, in una situazione normale il valore si aggira attorno ai 20-30, facendo analizzare il gas dell'accendino il valore sale fino
 anche fino a 920.
 I valori analogici sono 0 se c'è gas e 1 se non ce n'è.
@@ -268,6 +235,63 @@ Questo valore viene trasformato in decibel utilizzando la formula
 |-------------|---|
 |3.3V         |A1 |
 
+#### **Librerie Fishino**
+<br>
+
+***Fishino*** Versione 8.0.0
+
+Questa libreria è stata utilizzata per gestire tutta la parte di connessione alla rete e con il server, quindi anche l'invio dei dati.
+La documentazione completa è disponibile a questo [link](https://www.fishino.it/libraries.html).
+
+***Wire***
+
+Questa libreria è stata utilizzata per la comunicazione tra il fishino e i sensori.
+La documentazione completa è disponibile a questo [link](https://www.arduino.cc/en/reference/wire).
+
+***Adafruit_Sensor*** Versione 1.1.5
+
+Questa libreria è stata utilizzata per leggere nel modo corretto i dati registrati dai sensori.
+Sono state utilizzate anche delle librerie specifiche per certi sensori.
+Tutte queste implementano metodi e attributi che semplificano la lettura dei dati, ad esempio l'attributo
+`light` per la lettura della luminosità del sensore TSL.
+
+La documentazione completa è disponibile a questo [link](https://github.com/adafruit/Adafruit_Sensor).
+
+***Adafruit_TSL2561_U***
+
+Questa libreria è specifica per la lettura dei dati interenti alla luminosità letti dal sensore TSL2561.
+
+La documentazione completa è disponibile a questo [link](https://github.com/adafruit/Adafruit_TSL2561).
+
+***DHT***
+
+Questa libreria è specifica per la lettura dei dati interenti alla temperatura e all'umidità letti dal sensore DHT22.
+Sono presenti dei metodi molto comodi come ad esempio
+```cpp
+readHumidity()
+
+readTemperature()
+```
+<br>
+
+**Librerie utilizzate ma non implementate completamente**
+
+Queste librerie sono state utilizzate per la stesura del codice, però, purtroppo, le parti di codice dove vengono utilizzate
+non sono implementate nel codice finale a causa di problemi (di natura sconosciuta) con la lettura della scheda sd.
+
+***Fishino SdFat*** Versione 8.0.0
+
+Questa libreria mette a disposizione dei metodi utili per ciò che riguarda la lettura dei file presenti all'interno della scheda microSd
+integrata nel Fishino.
+
+La repo originale è disponibile a questo [link](https://github.com/systronix/SdFat_greiman).
+
+***ArduinoJson*** Versione 5.13.5
+
+Questa libreria permette di leggere e scrivere in formato Json.
+
+La documentazione completa è disponibile a questo [link](https://arduinojson.org/v5/doc/).
+
 ## Progettazione
 
 Questo capitolo descrive esaustivamente come deve essere realizzato il
@@ -302,8 +326,8 @@ Qui mettiamo lo schema di rete
 
 ### Design dei dati e database
 
-Descrizione delle strutture di dati utilizzate dal programma in base
-agli attributi e le relazioni degli oggetti in uso.
+Per questo progetto abbiamo deciso di utilizzare un database MySQL.
+<!--agiungere le info per il db-->
 
 ### Schema E-R, schema logico e descrizione.
 
@@ -383,11 +407,108 @@ già presente all'interno di librerie per Fishino.
 
 ### Lettura dati sensori
 
-#### MAX446 (Sensore suono)
+#### MAX4466 (Sensore suono)
+
+Per leggere correttamente i dati del sensore MAX4466 bisogna impostare i valori `sample` e `sample window` (finesrta di sample).
+Vegono poi letti i dati per un certo lasso di tempo, dato dalla finestra di sample.
+
+Il valore passato come output è la quantità di rumore in volt.
+Questo viene convertito in decibel utilizzando la formula già documentata in precedenza (vedi documentazione sensore). 
 
 
-### Connessione fishino
+#### TSL 2561 (Sesore luminosità)
 
+Come prima cosa bisogna generare un evento. Per assegnargli un valore viene poi utilizzata la libreria documentata precedentemente.
+
+```cpp
+sensors_event_t event; // creo l'evento
+tsl.getEvent(&event); // gli assegno un valore. 
+```
+
+la variabile `tsl` è di tipo `Adafruit_TSL2561_Unified`, *per maggiori informazioni leggere il capitolo riguardante le [librerie](#Librerie-Fishino)*.
+
+Se il valore `event.light` è maggiore di 0, allora il valore viene salvato.
+Se il valore invece è uguale a 0, significa che molto probabilmente il sensore è andato in overload.
+
+#### DHT (Sensore umidità e temperatura)
+
+La lettura di umidità e temperatura avviene semplicemente utilizzando i metodi messi a disposizione dalla libreria DHT, come nel seguente esempio.
+
+```cpp
+void readTemperature() {
+  // salvo il valore nella variabile
+	temperature = dht.readTemperature();
+}
+```
+
+`dht` è una variabile di tipo `DHT`, *per maggiori informazioni leggere il capitolo riguardante le [librerie](#Librerie-Fishino)*.
+
+### Connessione alla rete Wireless
+
+La connessione alla rete viene effettuata all'interno del metodo `connectWiFi()`.
+
+```cpp
+void connectWiFi() {
+	while (!Fishino.begin(SSID, PASSWORD)) {}
+	Fishino.staStartDHCP();
+	Serial.print("Connecting to WIFI..");
+	while (Fishino.status() != STATION_GOT_IP) {
+		Serial.print(".");
+		delay(300);
+	}
+}
+```
+
+Si può notare che in questo metodo viene utilizzata la classe `Fishino`, [documentata in precedenza](#Librerie-Fishino).
+
+Questo metodo prova a connettersi alla rete specificata e aspetta finché non riceve un indirizzo IP.
+Una volta ricevuto l'indirizzo si è connessi alla rete.
+
+Questo metodo viene richiamato all'interno del metodo `setup` per effettuare la prima connessione e nel metodo `loop` per
+permettere la riconnessione nel caso in cui il fishino si scolleghi dalla rete.
+
+**SSID:** nome della rete alla quale ci si deve connettere
+**Password:** password della rete alla quale ci si deve connettere
+
+### Comunicazione Fishino - Applicazione
+
+La comunicazione tra i fishino e l'applicazione avviene tramite richieste HTTP 1.1.
+La creazione di questi pacchetti è documentata qui sotto:
+
+#### createPacket
+
+Il metodo `createPacket()` si occupa di creare il corpo della richiesta, cioè la parte formattata in Json contenente i dati rilevati.
+
+Questo metodo ritorna una stringa contenente la richiesta da inviare al server.
+
+#### sendData
+
+Il metodo `sendData` si occupa di diverse cose:
+1. Stabilire la connessione con il server
+1. Inviare il pacchetto HTTP al server*
+1. Chiudere la connessione con il server
+
+\* il metodo sendData si occupa anche di completare il pacchetto HTTP nel momento in cui lo invia, aggiungendo l'header.
+
+#### Struttura pacchetto HTTP
+
+I pacchetti HTTP inviati dai fishino hanno la seguente struttura
+
+```http
+POST <route> HTTP/1.1
+Host: <host>
+User-Agent: FISHINO_CA
+Content-Type: application/json
+Content-Length: <length>
+
+{"chip": <chip_name>, "humidity": ..., "temperature": ..., "airQuality": ..., "decibels": ..., "light": ...}
+```
+
+Al posto di `<route>` viene messo il percorso (all'interno del sito) al quale mandare i dati.
+
+È indispensabile lasciare una riga vuota tra l'header e il contenuto della richiesta.
+
+Questo pacchetto viene ricevuto e poi interpretato dal server.
 
 ## Test
 
