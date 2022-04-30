@@ -221,6 +221,8 @@ sempre misurati dei numeri interi.
 |-------------|----------|
 |3.3V         |SDA e SCL |
 
+<br>
+
 ***MAX 4466, microfono (suono)***
 
 <img src="assets/sensori/max4466.jpg" alt="MAX4466" height="150"  style="float: left; margin:0 10px 0 0">
@@ -229,23 +231,27 @@ I suoni misurati possono assumere valori da 0.00 a 3.30, cioè il valore in volt
 Questo valore viene trasformato in decibel utilizzando la formula
 `20 * log(Audio output voltage/ Audio input voltage)` 
 
-<br><br><br><br>
 
 |Alimentazione|Pin|
 |-------------|---|
 |3.3V         |A1 |
 
+<br>
+
 #### **Librerie Fishino**
+
 <br>
 
 ***Fishino*** Versione 8.0.0
 
 Questa libreria è stata utilizzata per gestire tutta la parte di connessione alla rete e con il server, quindi anche l'invio dei dati.
+
 La documentazione completa è disponibile a questo [link](https://www.fishino.it/libraries.html).
 
 ***Wire***
 
 Questa libreria è stata utilizzata per la comunicazione tra il fishino e i sensori.
+
 La documentazione completa è disponibile a questo [link](https://www.arduino.cc/en/reference/wire).
 
 ***Adafruit_Sensor*** Versione 1.1.5
@@ -442,6 +448,12 @@ void readTemperature() {
 ```
 
 `dht` è una variabile di tipo `DHT`, *per maggiori informazioni leggere il capitolo riguardante le [librerie](#Librerie-Fishino)*.
+
+#### MQ 135 (Sensore qualità aria)
+
+Per leggere il  valore misurato dal sensore MQ 135 basta semplicemente leggere il valore sul pin analogico al quale è collegato.
+
+Possono poi essere utilizzate delle formule per calcolare percentuali o altri dati.
 
 ### Connessione alla rete Wireless
 
