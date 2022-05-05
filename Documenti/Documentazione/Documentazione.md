@@ -72,11 +72,15 @@
 
   - [Considerazioni personali](#considerazioni-personali)
 
-  - [Erik](#Erik)
+    - [Erik](#Erik)
+
+    - [Nicola](#Nicola)
 
 1. [Sitografia](#sitografia)
 
   - [Fishino](#sitografia-fishino)
+
+  - [Python-Flask](#sitografia-python--flask)
 
 1. [Allegati](#allegati) 
 
@@ -337,14 +341,23 @@ La documentazione completa è disponibile a questo [link](https://arduinojson.or
 
 ### Design dei dati e database
 
-Per questo progetto abbiamo deciso di utilizzare un database MySQL.
-<!--agiungere le info per il db-->
+Per questo progetto abbiamo deciso di utilizzare un database MySQL, quindi un database relazionale.
 
 ### Schema E-R, schema logico e descrizione.
 
-### Design delle interfacce
+Lo schema ER è il seguente:
 
-### Design procedurale
+<img src="./assets/schema_er.jpeg" alt="schema conversione" width="500">
+
+Come possiamo vedere abbiamo 3 entità:
+
+- Fishino
+- Data
+- User
+
+Fishino e Data sono relazionati fra di loro, essendo che in ogni riga presente in Data, possiamo trovare il riferimento al Fishino che ha mandato questi dati.
+
+Invece l'entità user non necessita un collegamento alle altre entità perchè viene semplicemente utilizzato per contenere il nome e la password degli utenti che hanno il diritto di poter accedere al sito web, e di poter accedere alle route riservate a amministratori.
 
 ## Implementazione
 
@@ -561,7 +574,7 @@ Gran parte di questo metodo è stato preso dal codice steso qualche anno fa da E
 #### Applicativo lato client.
 La struttura della repository di lavoro è stata strutturata seguendo l'ordine utilizzato da molti programmatori in python.
 
-<img src="./assets/working_tree.png" alt="schema conversione" width="">
+<img src="../assets/working_tree.png" alt="working tree" width="100">
 
 #### **app/static/**
 Contenitore di tutti i file necessari per la creazione dello stile della pagina, contiene solamente file .css.
@@ -815,24 +828,6 @@ Nel nostro caso sono il riferimento temporale ai nostri dati.
 
 Infine vengono assegnati con ```graph.add```, i valori veri e propri, raccolti dal nostro fishino.
 
-
-## Database
-Il database utilizzato per il salvataggio dei dati ricevuti dai fishino è stato MySql, quindi un database relazionale.
-
-Lo schema ER è il seguente:
-
-<img src="./assets/schema_er.jpeg" alt="schema conversione" width="500">
-
-Come possiamo vedere abbiamo 3 entità:
-
-- Fishino
-- Data
-- User
-
-Fishino e Data sono relazionati fra di loro, essendo che in ogni riga presente in Data, possiamo trovare il riferimento al Fishino che ha mandato questi dati.
-
-Invece l'entità user non necessita un collegamento alle altre entità perchè viene semplicemente utilizzato per contenere il nome e la password degli utenti che hanno il diritto di poter accedere al sito web, e di poter accedere alle route riservate a amministratori.
-
 ## Test
 
 ### Protocollo di test
@@ -985,7 +980,7 @@ Purtroppo non mi è stato possibile eseguire il mio lavoro alla perfezione come 
 - https://www.olimex.com/Products/Components/Sensors/Gas/SNS-MQ135/resources/SNS-MQ135.pdf, *SNS-MQ135*, 17.02.2022
 
 
-### Sitografia Fishino
+### Sitografia python / flask
 
 - https://www.python.org/, 05.05.2022
 - https://flask.palletsprojects.com/en/2.1.x/, 05.05.2022
@@ -997,6 +992,6 @@ Purtroppo non mi è stato possibile eseguire il mio lavoro alla perfezione come 
 
 -   [Codice sorgente fishino](../../Fishino/Sketch/ControlloAmbientale/ControlloAmbientale.ino)
 
--   [Quaderno dei compiti](../qdc.docx)
+-   [Quaderno dei compiti](../Qdc_controllo_ambientale.docx)
 
 -   [Link al sito](https://controlloambientale.pythonanywhere.com)
