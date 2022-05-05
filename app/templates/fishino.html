@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../static/css/login.css">
+        <link rel="stylesheet" href="../static/css/fishino_list.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        {% extends "layout.html" %}
+        {% block content %}
+        <h1>ACTIVE DEVICES</h1>
+            {% for item in fishino %}
+                <div class="center" ><a href="fishino/{{item.name}}"><button>{{item.name}} -> {{item.position}}</button></a><a href="fishino/delete/{{item.name}}">
+                <button class="del-btn"><i class="fa fa-trash-o" style="font-size:36px"></i></button></a></div>
+            {% endfor %}
+        {% endblock %}
+    </body>
+</html>

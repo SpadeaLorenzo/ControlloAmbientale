@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../static/css/login.css">
+        <link rel="stylesheet" href="../static/css/fishino_list.css">
+        <link rel="stylesheet" href="../static/css/graphics.css">
+    </head>
+    <body>
+        {% extends "layout.html" %}
+        {% block content %}
+        <form action="" method="POST">
+            <h2>Choose a time range:</h2>
+            <select name="time" id="times">
+                <option value="today">Today</option>
+                <option value="week">Last week</option>
+                <option value="month">Last month</option>
+                <option value="year">Last year</option>
+            </select>
+
+            <input type="submit" value="Submit">
+        </form>
+
+            <div class="container">
+                  <embed type="image/svg+xml" src={{graph_data_1|safe}} style='max-width:1000px'/>
+                  <embed type="image/svg+xml" src={{graph_data_2|safe}} style='max-width:1000px'/>
+                  <embed type="image/svg+xml" src={{graph_data_3|safe}} style='max-width:1000px'/>
+                  <embed type="image/svg+xml" src={{graph_data_4|safe}} style='max-width:1000px'/>
+                  <embed type="image/svg+xml" src={{graph_data_5|safe}} style='max-width:1000px'/>
+            </div>
+        {% endblock %}
+    </body>
+</html>

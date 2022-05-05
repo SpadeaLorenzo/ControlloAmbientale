@@ -1,0 +1,33 @@
+container{
+  display:flex;
+  flex-direction: column;
+}
+
+
+body{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+  'Lucida Sans', Arial, sans-serif;
+
+  align-items: center;
+}
+
+h2{
+  color:white;
+}
+
+.select {
+display:flex;
+position:relative;
+width:250px;
+height:40px;
+}
+
+input{
+  color:orange;
+  align-content: center;
+  border-radius:2px;
+  height: 8px;
+  color: orange;
+  background-color: #262428;
+  padding: 20px;
+}

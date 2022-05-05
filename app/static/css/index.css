@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:500');
+
+body{
+    background-color:#262428;
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+li, a, button, p{
+
+    font-weight: 500;
+    font-size: 16px;
+    color: #edf0f1;
+    text-decoration: none;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
+}
+
+header{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 30px 10%;
+}
+
+.logo{
+    cursor: pointer;
+    margin-right: auto;
+    font-size: 30px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+     'Lucida Sans', Arial, sans-serif;
+    color: white;
+}
+
+.nav_links li{
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+.nav_links li a{
+    transition: all 0.3 ease 0s;
+}
+
+
+.nav_links li a:hover{
+    color:#0088a9;
+}
+
+button{
+    padding: 9px 25px;
+    background-color: #0088a9;
+    border: none;
+    border-radius:50px ;
+    cursor: pointer;
+    transition: all 0.3 ease 0s;
+}
+
+button:hover{
+    box-shadow: 0 0 5px #719ECE;
+}
+
+footer{
+    text-align: center;
+    align-items: bottom;
+    flex: 1;
+}
+
+h1, h2{
+    color: white;
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+     'Lucida Sans', Arial, sans-serif;
+}
+
+h2{
+    margin-top:50px;
+}
+
+
+p{
+    text-align: center;
+    padding: 20px;
+}
+
+
+
+.info-div{
+    background-color: #A934BD;
+    box-sizing: border-box;
+    width: 200px;
+    border-radius:10px;
+    padding:10px;
+    margin-right:10px;
+    display:flex;
+}
+.container{
+    align-items:center;
+    display: flex;
+    justify-content: center;
+    margin-top:50px;
+}
+
+.status-div-allert{
+    width: 50px;
+    background-color:#e62e00;
+    border-radius:5px;
+    text-align:center;
+    margin-left:auto;
+}
+
+
+.status-div-normal{
+    width: 50px;
+    background-color:#2eb82e;
+    border-radius:5px;
+    text-align:center;
+    margin-left:auto;
+}
+
+
+
+
+
+
+
+
