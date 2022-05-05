@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../static/css/login.css">
+    </head>
+    <body>
+        {% extends "layout.html" %}
+        {% block content %}
+        <div class="login">
+            <form  method="post">
+                <h1 class="title">Login</h1>
+                <div class="login-inputs">
+                    <input type="text" placeholder="Username" name="username"/>
+                    <br>
+                    <br>
+                    <input type="password" placeholder="Password" name="pwd"/>
+                    <h1>{{ msg }}</h1>
+                    <button class="btn" type="submit">Let's go!</button>
+                </div>
+            </form>
+        </div>
+        {% endblock %}
+    </body>
+</html>

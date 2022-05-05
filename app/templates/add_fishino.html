@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../static/css/add_user.css">
+    </head>
+    <body>
+        {% extends "layout.html" %}
+        {% block content %}
+        <div class="add_user">
+            <h1 class="title">Add a Fishino</h1>
+            <form method="post">
+                <div class="add-user-inputs">
+                    <input type="text" placeholder="ID Name" name="name"/>
+                    <br></br>
+                    <input type="text" placeholder="Position" name="position"/>
+                    <br></br>
+                    <button class="btn">Add!</button>
+                </div>
+                <h2>{{ msg }}</h2>
+            </form>
+        </div>
+        {% endblock %}
+    </body>
+
+</html>
