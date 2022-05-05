@@ -54,6 +54,8 @@
 
       - [Struttura pacchetto HTTP](#Struttura-pacchetto-HTTP)
 
+    - [Lettura dati scheda SD](#lettura-dati-scheda-sd-non-implementato)
+
 1. [Test](#test)
 
   - [Protocollo di test](#protocollo-di-test)
@@ -74,6 +76,8 @@
 
 1. [Sitografia](#sitografia)
 
+  - [Fishino](#sitografia-fishino)
+
 1. [Allegati](#allegati) 
 
 
@@ -83,7 +87,7 @@
   - Autori: Nicola Anghileri, Erik Pelloni, Lorenzo Spadea.
   - Classe: I3BB
   - Docente responsabile: Geo Petrini, Guido Montalbetti
-  - Data inizio: 27.02.2022
+  - Data inizio: 27.01.2022
   - Data fine: 05.05.2022 
 
 ### Abstract
@@ -129,7 +133,7 @@
 |Req-002|Protocollo trasmissione                          |1           |1.0     |          |
 |Req-003|Progettare e realizzare case                     |3           |1.0     |          |
 |Req-004|Salvataggio dati in DB                           |1           |1.0     |          |
-|Req-005|Elaborazione dati tempo reale                    |1           |1.0     |          |
+|Req-005|Elaborazione dati tempo reale                    |2           |1.0     |          |
 |Req-006|Scelta grafici sito                              |1           |1.0     |          |
 |Req-007|Sistema amministrazione                          |1           |1.0     |          |
 |Req-008|Host separati per Web e DB                       |1           |1.0     |          |
@@ -499,9 +503,66 @@ Al posto di `<route>` viene messo il percorso (all'interno del sito) al quale ma
 
 Questo pacchetto viene ricevuto e poi interpretato dal server.
 
+### Lettura dati scheda SD (non implementato)
+
+A causa di errori di natura sconosciuta (magari qualche problema con la versione del firmware) non è stato
+possibile implementare il metodo che permettesse la lettura dei dati salvati sulla scheda sd integrata al fishino.
+
+Non siamo riusciti a capire nello specifico che errori producesse, siccome questo metodo corrompe il funionamento
+del programma senza sollevare eccezioni e senza un criterio preciso.
+
+Sulla scheda sd sono salvati i seguenti dati: `nome del fishino`, `ssid`, `password WiFi`, `server` al quale mandare
+i dati.
+
+Il metodo per la lettura del file txt contenente le informazioni salvate in formato json è riportato qui sotto
+
+```cpp
+void getSdconfigJson() {
+	Serial.println("Init SD card");
+	SdFat sd;
+
+	while (!sd.begin(chipSelect, SD_SCK_MHZ(15))) {
+		sd.initErrorPrint();
+	}
+	File config_file;
+	char config_line[180];
+	int char_index = 0;
+	char byte_config;
+
+	Serial.println("Reading config");
+	config_file = sd.open("config.txt", FILE_READ);
+	while (config_file.available()) {
+		byte_config = config_file.read();
+		if (byte_config >= 32 && byte_config <= 126) {
+			config_line[char_index] = (char)byte_config;
+		}
+		char_index++;
+	}
+	config_file.close();
+	jsonBuffer.clear();
+	Serial.println("Parsing config data");
+	JsonObject &json = jsonBuffer.parseObject(config_line);
+
+	chip_number = json["chip_number"];
+	ssid = json["ssid"];
+	password = json["password"];
+	server = json["server"];
+
+	jsonBuffer.clear();
+	Serial.println("SD letta");
+}
+
+```
+
+Gran parte di questo metodo è stato preso dal codice steso qualche anno fa da Emanuele Piatti 
+(ex. Apprendista del docente Geo Petrini), il quale si era già cimentato in questo progetto.
+
 ## Test
 
 ### Protocollo di test
+
+I seguenti test sono basati sull'[analisi e specifica dei requisiti](#analisi-e-specifica-dei-requisiti),
+per testare il corretto funzionamento dell'applicazione.
 
 #### Test Fishino
 
@@ -541,6 +602,24 @@ Questo pacchetto viene ricevuto e poi interpretato dal server.
 |**Procedura**        | Controllare che questi dati vengano presi dalla scheda SD e che non siano messi a mano nel codice. |
 |**Risultati attesi** | I dati sono scritti e vengono letti sulla/dalla scheda SD|
 
+|Test Case            | TC-005                                         |
+|---------------------|------------------------------------------------|
+|**Nome**             | Identificazione                                |
+|**Riferimento**      | REQ-009                                        |
+|**Descrizione**      | I fishino vengono identificati tra di loro     |
+|**Prerequisiti**     | Fishino funzionante, connessione alla rete     |
+|**Procedura**        | Testare che i fishino siano riconoscibili uno con l'altro |
+|**Risultati attesi** | Ogni fishino possiede un'informazione univoca  |
+
+|Test Case            | TC-006                                         |
+|---------------------|------------------------------------------------|
+|**Nome**             | Progettazione Case                             |
+|**Riferimento**      | REQ-003                                        |
+|**Descrizione**      | È stato progettato un case nel quale inserire i fishino |
+|**Prerequisiti**     | -                                              |
+|**Procedura**        | -                                              |
+|**Risultati attesi** | Il case è stato progettato                     |
+
 
 ### Risultati test
 
@@ -550,6 +629,8 @@ Questo pacchetto viene ricevuto e poi interpretato dal server.
 | TC-002  | ✔      |             |                            |
 | TC-003  | ✔      |             | Viene utilizzato HTTP 1.1  |
 | TC-004  |        | ✘           | Ci sono stati degli errori con la lettura della scheda|
+| TC-005  | ✔      |             | Sono distingubili grazie al nome (ad es. dratini, eevee,...)|
+| TC-006  |        | ✘           | Questo requisito aveva un'importanza minima|
 
 ### Mancanze/limitazioni conosciute
 
@@ -562,24 +643,56 @@ Questo pacchetto viene ricevuto e poi interpretato dal server.
 
 ### Sviluppi futuri
 
+1. Lettura dati fishino dalla scheda SD
+
+1. Aggiornamento dei grafici in tempo reale
+
 
 ### Considerazioni personali
 
+#### Erik
 
-## Bibliografia
+È stato un progetto molto interessante e sono veramente contento di averne preso parte. È stato impegnativo, però sono davvero contento 
+del risultato finale che è stato raggiunto grazie alla nostra dedizione.
 
-### Sitografia
+Il lavoro in gruppo secondo me è andato abbastanza bene. Ci siamo divisi i "compiti" all'inizio del progetto e ognuno ha lavorato sulla
+propria parte. Personalmente, avendo lavorato con i fishino, in genere ero abbastanza distaccato, rispetto a Nicola e Lorenzo, che lavorando
+su Front-end e Back-end si sono dovuti confrontare di più durante tutto lo svolgimento del progetto. Mi sono trovato a mio agio a lavorare con loro.
 
-1.  URL del sito (se troppo lungo solo dominio, evt completo nel
-    diario),
+Il cambiamento del linguaggio di programmazione utilizzato per creare il sito dopo qualche mese l'inizio ha cambiato la progettazione e per
+forza di cose ha ritardato tutto il progetto. Nonostante questo siamo riusciti però ad arrivare ad un prodotto (secondo me) soddisfacente.
 
-2.  Eventuale titolo della pagina (in italico),
+Sono contento di aver preso parte a questo progetto anche perché in questo modo ho potuto aumentare le mie esperienze per ciò che riguarda
+arduino e la gestione di un progetto, anche con dei compagni.
 
-3.  Data di consultazione (GG-MM-AAAA).
+## Sitografia
 
-**Esempio:**
+### Sitografia Fishino
 
--   http://standards.ieee.org/guides/style/section7.html, *IEEE Standards Style Manual*, 07-06-2008.
+- https://www.open-electronics.org/fishino-arduino-become-wireless/, *fishino: arduino become wireless*, 10.02.2022
+
+- https://www.open-electronics.org/fishino-lets-look-inside-the-features/, *fishino: lets look inside the features*, 10.02.2022
+
+- https://www.settorezero.com/wordpress/misurare-temperatura-e-umidita-relativa-con-il-sensore-dht22-e-un-picmicro/, 
+*Misurare Temperatura e Umidità relativa con il sensore DHT22 e un microcontrollore PIC*, 10.02.2022
+
+- https://microcontrollerslab.com/interfacing-mq-135-gas-sensor-arduino/, 
+*Interfacing of MQ135 Gas Sensor with Arduino*, 10.02.2022
+
+- https://create.arduino.cc/projecthub/m_karim02/arduino-and-mq-135-gas-sensor-with-arduino-code-a8c1c6,
+*Arduino And MQ 135 Gas Sensor With Arduino Code*, 10.02.2022
+
+- https://learn.adafruit.com/tsl2561/arduino-code, *TSL2561 Luminosity Sensor*, 10.02.2022
+
+- https://www.engineersgarage.com/tsl2561-light-sensor-with-arduino/, *TSL2561 light sensor with arduino*, 10.02.2022
+
+
+- https://learn.adafruit.com/adafruit-microphone-amplifier-breakout/measuring-sound-levels, *Adafruit Microphone Amplifier Breakout*, 17.02.2022
+
+- https://www.codrey.com/electronic-circuits/how-to-use-mq-135-gas-sensor/, *How to use mq-135 gas sensor*,
+17.02.2022
+
+- https://www.olimex.com/Products/Components/Sensors/Gas/SNS-MQ135/resources/SNS-MQ135.pdf, *SNS-MQ135*, 17.02.2022
 
 ## Allegati
 
