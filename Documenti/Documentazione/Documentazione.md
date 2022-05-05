@@ -557,6 +557,282 @@ void getSdconfigJson() {
 Gran parte di questo metodo è stato preso dal codice steso qualche anno fa da Emanuele Piatti 
 (ex. Apprendista del docente Geo Petrini), il quale si era già cimentato in questo progetto.
 
+### **Applicazione**
+#### Applicativo lato client.
+La struttura della repository di lavoro è stata strutturata seguendo l'ordine utilizzato da molti programmatori in python.
+
+<img src="./assets/working_tree.png" alt="schema conversione" width="">
+
+#### **app/static/**
+Contenitore di tutti i file necessari per la creazione dello stile della pagina, contiene solamente file .css.
+
+#### **app/templates/**
+Contenitore dei file .html, utilizzati per la creazione della struttura del sito internet. 
+
+#### **app/templates/page**
+Contiene le pagine di default caricate da layout.html, che sono navbar.html e footer.html, la barra di navigazione che verrà utilizzata per navigare tra le diverse pagine messe a disposizione, ed il footer che è il contenitore del Copyright di questo sito.
+
+#### **app/app.py**
+File principale del nostro applicativo. Viene utilizzato per istanziare l'applicativo stesso, grazie all'utilizzo della libreria di nome "Flask", viene utilizzato inoltre per gesitre tutte le richieste che vengono fatte da parte dell'utente, come il login o le richieste dei dati.
+
+#### **app/graphs.py**
+Una classe creata per la gestione e creazione dei grafici mostranti i dati raccolti dai dispositivi di nome fishino, utilizzati per questo.
+Questa classe viene però utilizzata all'interno di app.py.
+
+#### **app/requirements.txt**
+File contentente tutte le librerie utilizzate all'interno dell'intero applicativo, utile per tener traccia, e per il team working.
+
+### Implementazione dell'applicativo
+
+```python
+app = Flask(__name__)
+app.secret_key = "lachiavepiusegretadelmondo"
+bcrypt = Bcrypt(app)
+```
+
+La prima cosa che viene eseguita nel file principale del nostro applicativo sono le righe di istanziamento, della classe principale, chiamata "app", grazie alla classe "Flask".
+Per aggiungere un livello di sicurezza, la libreria "Flask", nel momento in cui si parla di rendere online l'applicativo, ci viene chiesto di impostare una stringa che fungerà da chiave per i movimenti della nostra applicazione.
+
+Per l'utilizzo della libreria Bcrypt per rendere sicure le password salvate nel database bisognerà associare la class Bcrypt, al nostro applicativo princiapale.
+
+```python
+def get_connection():
+  try:
+    cnx = mysql.connector.connect(user='ControlloAmbient',password='apYv#C-wg*b7gn6f',host='ControlloAmbientale.mysql.pythonanywhere-services.com',database='ControlloAmbient$ca')
+    logging.debug('connection established')
+    return cnx
+  except mysql.connector.Error as err:
+    logging.exception('error during db connection' , msg=err)
+```
+Per la connessione facile e veloce al nostro database creato e hostato sul sito di pythonanywhere, è stata creata questa funzione, che servirà per ritornarci una connessione attiva al nostro database funzionante, in modo da poter eseguire una query.
+
+Questo viene fatto grazie al connector creato da mysql, da poter utilizzare con del codice in python, grazie al metodo fornito "connector.connect" possiamo eseguire le nostre richieste.
+
+```python
+def get_data(data_type,fishino,option):
+    cnx = get_connection()
+    cursor = cnx.cursor(dictionary=True)
+    query = ""
+    if option == 1:
+        query = ("SELECT data,{} FROM data where DATE(data)=CURDATE() AND fishino_name='{}'").format(data_type,fishino)
+    elif option == 2:
+        query =  ("SELECT DATE(data) as data, ROUND(AVG({})) as {} FROM data WHERE data > now() - INTERVAL 1 WEEK  AND fishino_name='{}' GROUP BY DATE(data)").format(data_type,data_type,fishino)
+    elif option == 3:
+        query =  ("SELECT DATE(data) as data, ROUND(AVG({})) as {} FROM data WHERE data > now() - INTERVAL 1 MONTH AND fishino_name='{}' GROUP BY DATE(data)").format(data_type,data_type,fishino)
+    elif option == 4:
+        query = ("SELECT DATE_FORMAT(`data`, '%Y-%m') as data, ROUND(AVG({})) as {} FROM data WHERE fishino_name='{}' GROUP BY DATE_FORMAT(`data`, '%Y-%m') ORDER BY data DESC LIMIT 12").format(data_type,data_type,fishino)
+    elif option == 5:
+        query = ("SELECT DATE(data) as data, ROUND(AVG({})) as {} FROM data WHERE data > now() - INTERVAL 10 MINUTE").format(data_type, data_type)
+
+
+    cursor.execute(query)
+    output = cursor.fetchall()
+
+    labels = []
+    dati = []
+
+    for row in output:
+      labels.append(row['data'])
+      dati.append(row[data_type])
+
+    merge = [dati,labels]
+    cursor.close()
+    cnx.close()
+    return merge
+```
+Una funzione utilizzata nella nostra classe principale è get_data, passando a questa funzione 3 parametri:
+
+- data_type la rappresentazione testuale del tipo di dato che vogliamo richiedere.
+- fishino il nome del fishino presente all'interno del nostro database.
+- option la rappresentazione numerica dello spazio temporale da richiedere, 1 - Oggi, 2 - Scorsa settimana, 3 - Scorso mese, 4 - Scorso anno.
+
+In base all'option inserito, verranno eseguite delle richieste al database differenti, ovviamente le differente sono il tempo in cui noi vogliamo ricevere i nostri dati.
+Grazie ai valori del nome del fishino, e del tipo di dato che vogliamo, possiamo rendere la nostra richiesta, più libera.
+
+### Spiegazione delle route
+
+#### **/**
+
+La route principale del nostro applicativo web.
+
+#### **/fishino**
+
+La route contentene la lista intera di tutti i dispositvi attivi e non all'interno del nostro applicativo.
+
+#### **/fishino/data**
+
+La route utilizzata per il ricevimento dei dati mandati tramite il protocollo http dai fishino.
+
+#### **/fishino/<fishino>**
+
+La route utilizzata per la visualizzazione dettagliata dei dati raccolti da un singolo fishino di nome <fishino>, viene mostrata anche la scelta personalizzata del range temporale che si vuole visualizzare.
+
+#### **/login**
+
+La route utilizzata per eseguire il login nell'applicativo web.
+
+### **Route per amministratori**
+
+#### **/fishino/delete/<fishino>**
+
+La route utilizzate per eliminare completamente sia dalla tabella Fishino che tutti i dati nella tabella Data, il fishino di nome <fishino>.
+
+#### **/logout**
+
+La route utilizzata per eseguire il logout dall'applicativo web.
+
+#### **/add_user**
+
+La route utilizzata per aggiungere un utente amministratore all'applicativo web.
+
+#### **/add_fishino**
+
+La route utilizzata per aggiungere un fishino all'applicativo web.
+
+## Implementazione delle route
+In questo capitolo andrò ad elencare le parti più importanti e più utilizzate all'interno delle specifiche route.
+
+
+**/**
+Questa route esegue una singola riga di codice
+
+```python
+return render_template('index.html',params())
+```
+
+Questa route, ritorna direttamente il rendering di una pagina html, più precisamente della pagina index dell'applicativo, aggiungendo però dei parametri. Questi parametri sono i valori utilizzati per la rappresentazione dell'attuale stato dei valori, se sono presenti dei valori registrati pericolosi questi verranno mostrati grazie all'array params().
+
+**/fishino**
+
+```python
+cnx = get_connection()
+cursor = cnx.cursor(dictionary=True)
+cursor.execute("SELECT * FROM fishino")
+```
+
+In questa route, si va ad eseguire una richiesta al database, utilizzando la funzione get_connection() spiegata in precedenza, la richiesta consiste nella lista di tutti i fishino presenti. Sia attivi che inattivi.
+
+
+**/fishino/data**
+
+```python
+content_type = request.headers.get('Content-Type')
+
+insert_data(name , humidity , brigthness , noise , co2 , temperature)
+```
+In questa route viene letto il tipo del contenuto in entrata, visto l'utilizzo del protocollo HTTP per la trasmissione dei dati, deve essere controllato e grazie alla funzione ```headers.get('Content-Type')```, possiamo andare a leggere direttamente quale è il tipo di contenuto scritto nel paccetto HTTP che stiamo per ricevere.
+
+Una volta ricevuti i dati si possono andare a salvare nel database, utilizzando la funziona creata da noi di nome insert_data, che va semplicemente ad eseguire un INSERT nella tabella data di sql.
+
+
+**/fishino/<fishino>**
+
+La route utilizzata per far vedere tutti i grafici all'utente, viene renderizzata una pagina html, alla quale viene passata come parametro un'immagine di tipo svg che sarebbe frutto della funzione create_graph, create all'interno della classe graphs.py.
+Questa immagine rappresenta il grafico con al suo interno i dati del fishino selezionato fishino/fishino.
+
+```python
+return render_template("graphics.html",graph_data_1=create_graph(fishino,get_fishino_position(fishino),"co2",dataco2[0],dataco2[1],get_time_string(option)),
+```
+
+**/login**
+
+La route utilizzata per il login contiene un controllo, questo controllo guarda se la richiesta è POST, questo vuol dire che un utente sta sicuramente tentando di accedere al nostro sito.
+Se questo è il caso allora grazie all'utilizzo della classe ```bcrypt``` possiamo utilizzare il metodo 
+```bcrypt.check_password_hash(pwd,password)```, grazie a questo metodo possiamo controllare se la password inserita dall'utente che vorrebbe accedere  al nostro sito, corrisponde alla password presente nel database. Visto però che la password è stata criptata, possiamo eseguire questo confronto solo grazie a questa funzione. Avendo usato la classe ```bcrypt``` all'inserimento della password nel database.
+
+```python
+if request.method == "POST":
+  ...
+
+  if data:
+        user, pwd = data
+        pwd = bytes(pwd).decode("utf-8")
+        if bcrypt.check_password_hash(pwd,password):
+          session["login"] = True
+          session["username"] = uname
+          return redirect(url_for('index'))
+        else:
+            return render_template("login.html",msg="Wrong password")
+    else:
+        return redirect("login.html",msg="Username does not exists")
+```
+
+**Route per amministratori**
+
+Per controllare se un utente è effettivamente registrato nel nostro sito viene utilizzata: 
+```python
+if session["login"] == True:
+```
+
+
+**/fishino/delete/<fishino>**
+
+La parte più importante eseguita da questa route sono le due eliminazioni dal datbase, importante da notare è che la prima istruzione ```delete``` deve essere eseguita prima, per evitare errori dal database, che non permette un'eliminazione di dati, se essi contengono riferimenti ad un'altra tabella con delle chiavi esterne. Grazie alla prima istruzione eliminiamo le chiavi esterne, e poi con la seconda istruzione ```delete2```, andremo ad eliminare il fishino dalla sua tabella.
+
+```python
+delete = (f"DELETE FROM data WHERE fishino_name='{fishino}'")
+delete2 = (f"DELETE FROM fishino WHERE name='{fishino}'")
+```
+
+**/logout**
+
+In logout basterà pulire la sessione creata in precedenza, quindi eliminare i dati salvati, come lo username dell'utente registrato, e poi ridirezionare l'utente appena uscito, alla pagina di Home, per evitare di sporcare l'url di route invalide.
+
+```python
+  session.clear()
+  return redirect(url_for('index'))
+```
+
+**/add_user** e **/add_fishino**
+L'unica cosa eseguita da queste due route sono un'inserimento dei dati all'interno delle loro rispettive tabelle, dopo aver controllato che non fossero già esistenti.
+
+```python
+statement = """INSERT INTO fishino(name , position) VALUES (%s,%s)"""
+```
+
+### Creazione grafici con pygal
+Per la creazione dei grafici utilizzati per visualizzare i dati raccolti con più facilità, è stata utilizzaza la libreria pygal, essa offre tante possibilità di grafici differenti, offre la possibilità di cambiare lo stile e molto altro.
+
+
+```python
+def create_graph(fishino_id, position, type, values, labels, time):
+	try:
+		graph = pygal.Line(style=custom_style)
+		graph.title = "{} detected by {} at {} {}".format(type,fishino_id, position, time)
+		graph.x_labels = labels
+		graph.add(type, values)
+		graph_data = graph.render_data_uri()
+		return graph_data
+	except Exception as e:
+		return(str(e))
+```
+Grazie a pygal che ci offre la possibilità di utilizzare i suoi oggetti preconfezionati come ad esempio ```pygal.Line```, che sarà il tipo di grafico da noi utilizzato, e poi assegnando ai vari attributi i loro valori, possiamo poi alla fine visualizzare un bel grafico.
+
+Vengono infatti attribuiti dei valori ```graph.title```, che sarà il titolo del nostro grafico, al quale viene attribuito una stringa formattata con le informazioni più importanti.
+
+Vengono assegnati i ```labels```, che sono i valori presenti sull'asse delle x.
+Nel nostro caso sono il riferimento temporale ai nostri dati.
+
+Infine vengono assegnati con ```graph.add```, i valori veri e propri, raccolti dal nostro fishino.
+
+
+## Database
+Il database utilizzato per il salvataggio dei dati ricevuti dai fishino è stato MySql, quindi un database relazionale.
+
+Lo schema ER è il seguente:
+
+<img src="./assets/schema_er.jpeg" alt="schema conversione" width="500">
+
+Come possiamo vedere abbiamo 3 entità:
+
+- Fishino
+- Data
+- User
+
+Fishino e Data sono relazionati fra di loro, essendo che in ogni riga presente in Data, possiamo trovare il riferimento al Fishino che ha mandato questi dati.
+
+Invece l'entità user non necessita un collegamento alle altre entità perchè viene semplicemente utilizzato per contenere il nome e la password degli utenti che hanno il diritto di poter accedere al sito web, e di poter accedere alle route riservate a amministratori.
+
 ## Test
 
 ### Protocollo di test
@@ -640,14 +916,18 @@ per testare il corretto funzionamento dell'applicazione.
 
 ## Conclusioni
 
+Siamo riusciti a soddisfare tante richieste iniziali nonstante i moltissimi errori avuti durante lo svolgimento, purtroppo non per colpa nostra.
 
 ### Sviluppi futuri
 
-1. Lettura dati fishino dalla scheda SD
+1. Lettura dati fishino dalla scheda SD.
 
-1. Aggiornamento dei grafici in tempo reale
+2. Aggiornamento dei grafici in tempo reale.
 
+3. Modifica dell'orario di inserimento dei dati.
 
+4. Dare all'utente la possibilità di decidere una soglia.
+   
 ### Considerazioni personali
 
 #### Erik
@@ -659,11 +939,21 @@ Il lavoro in gruppo secondo me è andato abbastanza bene. Ci siamo divisi i "com
 propria parte. Personalmente, avendo lavorato con i fishino, in genere ero abbastanza distaccato, rispetto a Nicola e Lorenzo, che lavorando
 su Front-end e Back-end si sono dovuti confrontare di più durante tutto lo svolgimento del progetto. Mi sono trovato a mio agio a lavorare con loro.
 
-Il cambiamento del linguaggio di programmazione utilizzato per creare il sito dopo qualche mese l'inizio ha cambiato la progettazione e per
+Il cambiamento del linguaggio di programmazione utilizzato per creare il sito dopo qualche mese dall'inizio, ha cambiato la progettazione, e per
 forza di cose ha ritardato tutto il progetto. Nonostante questo siamo riusciti però ad arrivare ad un prodotto (secondo me) soddisfacente.
 
 Sono contento di aver preso parte a questo progetto anche perché in questo modo ho potuto aumentare le mie esperienze per ciò che riguarda
 arduino e la gestione di un progetto, anche con dei compagni.
+
+#### Nicola
+
+Sono partito con delle aspettative troppo alte per questo progetto, purtroppo sono stato demotivato per colpa dei moltissimi errori dati dal sistema della nostra scuola.
+
+Dopo però aver deciso di cambiare linguaggio, per colpa dei tanti errori avuti in precedenza, ho finalmente ritrovato una sfida che mi interessava, allora ho continuato a lavorare ai problemi che mi venivano dati, per risolverli il meglio possibile.
+
+Purtroppo non mi è stato possibile eseguire il mio lavoro alla perfezione come avrei voluto fare, ma sono comunque molto soddisfatto del mio lavoro. In particolare dell'ultima lezione in cui io ed Erik siamo stati molto produttivi. E siamo riusciti a recuperare tutti i problemi che erano ancora in sospeso.
+
+
 
 ## Sitografia
 
@@ -693,6 +983,13 @@ arduino e la gestione di un progetto, anche con dei compagni.
 17.02.2022
 
 - https://www.olimex.com/Products/Components/Sensors/Gas/SNS-MQ135/resources/SNS-MQ135.pdf, *SNS-MQ135*, 17.02.2022
+
+
+### Sitografia Fishino
+
+- https://www.python.org/, 05.05.2022
+- https://flask.palletsprojects.com/en/2.1.x/, 05.05.2022
+- https://www.pygal.org/en/stable/documentation/, 05.05.2022
 
 ## Allegati
 
